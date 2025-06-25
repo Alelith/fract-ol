@@ -6,7 +6,7 @@
 #    By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/29 19:17:42 by acesteve          #+#    #+#              #
-#    Updated: 2025/06/16 21:35:59 by acesteve         ###   ########.fr        #
+#    Updated: 2025/06/25 09:24:49 by acesteve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-INCLUDES = ../../includes
+INCLUDES = includes
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
