@@ -6,15 +6,22 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:19:24 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/26 18:52:40 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/27 00:20:08 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACT_OL_H
 # define FRACT_OL_H
 
-# define W 1920
-# define H 1080
+# ifndef W
+#  define W 1920
+# endif
+# ifndef H
+#  define H 1080
+# endif
+# ifndef ITER
+#  define ITER 50
+# endif
 
 # include "ft_printf.h"
 # include "mlx.h"
@@ -37,6 +44,7 @@ typedef struct s_data
 }	t_data;
 
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int			atod(const char *nptr);
 
 /*Color functions*/
 int			get_trgb(int t, int r, int g, int b);
@@ -50,5 +58,6 @@ void		print_complx(t_complex num);
 double		complx_module(t_complex num);
 
 void		draw_mandelbrot(t_data *img);
+void		draw_julia(t_data *img, double c_real, double c_img);
 
 #endif

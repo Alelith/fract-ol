@@ -4,14 +4,14 @@ INCLUDES = includes/
 MLXINCLUDES = libs/mlx/
 CC = cc# -Wall -Wextra -Werror
 
-SRC = src/main.c src/color_utils.c src/complex_utils.c src/mandelbrot_utils.c
+SRC = src/main.c src/color_utils.c src/complex_utils.c src/mandelbrot_utils.c src/julia_utils.c src/atod.c
 
 LIBS = libs/mlx/libmlx.a libs/printf/libftprintf.a
 
 all: $(NAME)
 
 $(NAME): $(LIBS)
-	$(CC) -g $(SRC) $(LIBS) -I $(INCLUDES) -Llibs/mlx -lmlx -lX11 -lXext -lm -lz -o $(NAME)
+	$(CC) -D H=1080 -D W=1920 -g $(SRC) $(LIBS) -I $(INCLUDES) -Llibs/mlx -lmlx -lX11 -lXext -lm -lz -o $(NAME)
 
 $(LIBS):
 	make -C libs/mlx/

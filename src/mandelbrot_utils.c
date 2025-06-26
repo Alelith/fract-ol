@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:27:37 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/26 19:00:51 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/27 00:30:25 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ void	draw_mandelbrot(t_data *img)
 			c.imag = ((double)j / H - 0.5) * (3.5 / 0.75) * ((double)H / W);
 			z.real = 0;
 			z.imag = 0;
-			dives = diverge(z, c, 255, 2);
+			dives = diverge(z, c, ITER, 2);
 			if (dives)
-				my_mlx_pixel_put(img, i, j, trgb_rainbow(255 - dives, 150));
+				my_mlx_pixel_put(img, i, j,
+					trgb_rainbow((dives * 250 / ITER) - dives, 0));
 			else
 				my_mlx_pixel_put(img, i, j, 0);
 		}
+		i = W + 1;
 	}
 }
