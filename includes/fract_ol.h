@@ -6,15 +6,15 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:19:24 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/25 23:45:23 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:52:40 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACT_OL_H
 # define FRACT_OL_H
 
-#define W 1920
-#define H 1080
+# define W 1920
+# define H 1080
 
 # include "ft_printf.h"
 # include "mlx.h"
@@ -36,12 +36,11 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
 /*Color functions*/
 int			get_trgb(int t, int r, int g, int b);
-int			get_t(int trgb);
-int			get_r(int trgb);
-int			get_g(int trgb);
-int			get_b(int trgb);
+int			trgb_rainbow(int value, float offset);
 
 /*Complex numbers operators*/
 t_complex	multiply_complx(t_complex a, t_complex b);
@@ -50,7 +49,6 @@ t_complex	subs_complx(t_complex a, t_complex b);
 void		print_complx(t_complex num);
 double		complx_module(t_complex num);
 
-t_complex	iteration(t_complex z, t_complex c);
-int			diverge(t_complex z, t_complex c, int iter, double limit);
+void		draw_mandelbrot(t_data *img);
 
 #endif
