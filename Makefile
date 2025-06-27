@@ -11,7 +11,7 @@ LIBS = libs/mlx/libmlx.a libs/printf/libftprintf.a
 all: $(NAME)
 
 $(NAME): $(LIBS)
-	$(CC) -D H=1080 -D W=1920 -g $(SRC) $(LIBS) -I $(INCLUDES) -Llibs/mlx -lmlx -lX11 -lXext -lm -lz -o $(NAME)
+	$(CC) -D H=200 -D W=200 -g $(SRC) $(LIBS) -I $(INCLUDES) -Llibs/mlx -lmlx -lX11 -lXext -lm -lz -o $(NAME)
 
 $(LIBS):
 	make -C libs/mlx/

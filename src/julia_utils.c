@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:10:14 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/27 01:10:36 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/27 03:15:00 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	draw_julia(t_data *img, double c_real, double c_img)
 	{
 		while (i--)
 		{
-			z.real = ((double)i / W) * (4 * 0.5) - 2;
-			z.imag = ((double)j / H) * (4 * (0.5 * (H / (double) W))) - 2;
+			z.real = ((double)i / W) * 4 - 2;
+			z.imag = ((double)j / H) * 4 - 2;
 			dives = diverge(z, c, ITER, 10);
 			if (dives)
 				my_mlx_pixel_put(img, i, j,

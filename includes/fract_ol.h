@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:19:24 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/27 00:20:08 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/27 03:20:46 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #  define H 1080
 # endif
 # ifndef ITER
-#  define ITER 50
+#  define ITER 150
 # endif
 
 # include "ft_printf.h"
