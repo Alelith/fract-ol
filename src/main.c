@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 09:22:47 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/27 03:17:00 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/29 11:29:52 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	main(int argc, char **argv)
 {
 	void	*mlx;
 	void	*mlx_win;
+	double	c_argr;
+	double	c_argi;
 	t_data	img;
 
 	if (argc < 2 || argc > 4)
@@ -51,7 +53,11 @@ int	main(int argc, char **argv)
 	if (ft_strcmp(argv[1], "mandelbrot"))
 		draw_mandelbrot(&img);
 	if (ft_strcmp(argv[1], "julia"))
-		draw_julia(&img, atod(argv[2]), atod(argv[3]));
+	{
+		c_argr = atod(argv[2]);
+		c_argi = atod(argv[3]);
+		draw_julia(&img, c_argr, c_argi);
+	}
 	ft_printf("Ya ta");
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);

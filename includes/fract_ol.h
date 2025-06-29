@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:19:24 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/27 03:20:46 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/29 12:51:10 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@
 # ifndef H
 #  define H 1080
 # endif
+
 # ifndef ITER
-#  define ITER 150
+#  define ITER 50
 # endif
+
+# define PI 3.14159265358979323846
 
 # include "ft_printf.h"
 # include "mlx.h"
@@ -44,11 +47,10 @@ typedef struct s_data
 }	t_data;
 
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int			atod(const char *nptr);
+double		atod(const char *nptr);
 
 /*Color functions*/
-int			get_trgb(int t, int r, int g, int b);
-int			trgb_rainbow(int value, float offset);
+int			psychedelic_color(int iter, int max_iter, double phase);
 
 /*Complex numbers operators*/
 t_complex	multiply_complx(t_complex a, t_complex b);

@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:30:51 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/26 18:54:35 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/29 10:46:38 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_complx(t_complex num)
 {
-	ft_printf("%f + %fi\n", num.real, num.imag);
+	ft_printf("%f + %fi", num.real, num.imag);
 }
 
 t_complex	multiply_complx(t_complex a, t_complex b)

@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:36:26 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/26 19:59:40 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/29 12:45:26 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ static double	get_decimals(const char *nptr)
 		nptr++;
 		decimals *= 10;
 	}
+	return (result);
 }
 
 double	atod(const char *nptr)
 {
-	int		sign;
+	double	sign;
 	double	result;
-	int		decimals;
+	double	decimals;
 
 	sign = 1;
 	result = 0;
@@ -49,5 +50,6 @@ double	atod(const char *nptr)
 		nptr++;
 		result += get_decimals(nptr);
 	}
-	return (result * sign);
+	result = result * sign;
+	return (result);
 }
