@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:19:24 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/29 12:51:10 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/29 22:33:13 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # endif
 
 # ifndef ITER
-#  define ITER 50
+#  define ITER 40
 # endif
 
 # define PI 3.14159265358979323846
@@ -44,22 +44,34 @@ typedef struct s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	double	x_max;
+	double	x_min;
+	double	y_max;
+	double	y_min;
 }	t_data;
+
+typedef struct s_vars
+{
+	void	*mlx;
+	void	*win;
+}	t_vars;
 
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 double		atod(const char *nptr);
 
 /*Color functions*/
-int			psychedelic_color(int iter, int max_iter, double phase);
+int			psychedelic_color(int iter, double phase);
+int			get_color_hsv(int iter);
 
 /*Complex numbers operators*/
 t_complex	multiply_complx(t_complex a, t_complex b);
 t_complex	sum_complx(t_complex a, t_complex b);
-t_complex	subs_complx(t_complex a, t_complex b);
-void		print_complx(t_complex num);
+t_complex	sinh_complx(t_complex num);
+t_complex	div_complx(t_complex a, t_complex b);
 double		complx_module(t_complex num);
 
 void		draw_mandelbrot(t_data *img);
+void		draw_sinh_mandelbrot(t_data *img);
 void		draw_julia(t_data *img, double c_real, double c_img);
 
 #endif

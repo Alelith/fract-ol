@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:27:37 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/29 11:18:56 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/06/29 22:50:13 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	draw_mandelbrot(t_data *img)
 	{
 		while (i++ < W)
 		{
-			c.real = -0.5 + ((double)i / W - 0.5) * 4;
-			c.imag = ((double)j / H - 0.5) * (4 * ((double)H / W));
+			c.real = -0.5 + ((double)i / W - 0.5) * (img -> x_max - img -> x_min);
+			c.imag = ((double)j / H - 0.5) * ((img -> y_max - img -> y_min) * ((double)H / W));
 			dives = diverge(z, c, ITER, 2.0);
 			if (dives > 0)
 				my_mlx_pixel_put(img, i, j,
-					psychedelic_color(ITER - dives, ITER, 0.0));
+					psychedelic_color(ITER - dives, 0.0));
 			else
 				my_mlx_pixel_put(img, i, j, 0);
 		}
