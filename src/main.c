@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 09:22:47 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/04 15:15:45 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:29:58 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,18 @@ int	main(int argc, char **argv)
 		vars.type = MANDELBROT;
 		redraw_fractal(&vars);
 	}
-	else if (ft_strcmp(argv[1], "cos"))
+	else if (ft_strcmp(argv[1], "sinh"))
 	{
 		vars.initial_z.real = 0;
 		vars.initial_z.imag = 1;
-		vars.type = MANDELBROT;
+		vars.type = SINH_MANDELBROT;
+		redraw_fractal(&vars);
+	}
+	else if (ft_strcmp(argv[1], "eye"))
+	{
+		vars.initial_z.real = 0;
+		vars.initial_z.imag = 0;
+		vars.type = DRAGON_MANDELBROT;
 		redraw_fractal(&vars);
 	}
 	else if (ft_strcmp(argv[1], "julia"))

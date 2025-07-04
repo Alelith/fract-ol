@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:39:32 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/04 13:48:24 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:29:06 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	get_color_hsv(int iter)
 	if (hue > 360.0)
 		hue -= 360.0;
 	sat = 1.0;
-	val = ((double)iter / ITER) + 0.125;
+	val = ((double)iter / ITER) + 0.25;
 	if (val > 1)
 		val = 1;
 	hsv_to_rgb(hue, sat, val, &rgb[0]);

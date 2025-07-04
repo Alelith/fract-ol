@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:19:24 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/04 15:11:12 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:22:43 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef enum e_fractals
 {
 	MANDELBROT = 0,
 	JULIA = 1,
-	SINH_MANDELBROT = 2
+	SINH_MANDELBROT = 2,
+	DRAGON_MANDELBROT = 3
 }	t_fractals;
 
 typedef struct s_vector2
@@ -81,10 +82,12 @@ t_complex	multiply_complx(t_complex a, t_complex b);
 t_complex	sum_complx(t_complex a, t_complex b);
 t_complex	sinh_complx(t_complex num);
 t_complex	div_complx(t_complex a, t_complex b);
+t_complex	inv_complx(t_complex a);
 double		complx_module(t_complex num);
 
 /*Fractal render*/
 void		redraw_fractal(t_data *data);
+void		draw_eye_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_sinh_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_julia(t_data *img, t_complex z, t_vector2 pos);

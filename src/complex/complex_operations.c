@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:30:51 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/04 13:31:08 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:11:39 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ t_complex	div_complx(t_complex a, t_complex b)
 	den = (b.real * b.real) + (b.imag * b.imag);
 	result.real = (a.real * b.real + a.imag * b.imag) / den;
 	result.imag = (a.imag * b.real - a.real * b.imag) / den;
+	return (result);
+}
+
+t_complex	inv_complx(t_complex a)
+{
+	t_complex	result;
+	double		den;
+
+	den = (a.real * a.real) + (a.imag * a.imag);
+	result.real = a.real / den;
+	result.imag = -a.imag / den;
 	return (result);
 }
 
