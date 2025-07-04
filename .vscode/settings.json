@@ -1,9 +1,0 @@
-{
-	"makefile.launchConfigurations": [
-		{
-			"cwd": "/home/lilith/42/fract-ol",
-			"binaryPath": "/home/lilith/42/fract-ol/fractol",
-			"binaryArgs": []
-		}
-	]
-}

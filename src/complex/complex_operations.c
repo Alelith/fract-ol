@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_utils.c                                    :+:      :+:    :+:   */
+/*   complex_operations.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:30:51 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/29 19:51:45 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:31:08 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ t_complex	sum_complx(t_complex a, t_complex b)
 
 	result.real = (a.real + b.real);
 	result.imag = (a.imag + b.imag);
-	return (result);
-}
-
-t_complex	sinh_complx(t_complex num)
-{
-	t_complex	result;
-
-	result.real = sinh(num.real) * cos(num.imag);
-	result.imag = cosh(num.real) * sin(num.imag);
 	return (result);
 }
 

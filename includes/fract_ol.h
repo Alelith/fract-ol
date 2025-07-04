@@ -6,30 +6,45 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:19:24 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/29 22:33:13 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:11:12 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACT_OL_H
 # define FRACT_OL_H
 
-# ifndef W
-#  define W 1920
+# ifndef WIDTH
+#  define SCREEN_WIDTH 700
 # endif
-# ifndef H
-#  define H 1080
+# ifndef HEIGHT
+#  define SCREEN_HEIGHT 700
 # endif
 
 # ifndef ITER
 #  define ITER 40
 # endif
 
-# define PI 3.14159265358979323846
+# ifndef PI
+#  define PI 3.14159265358979323846
+# endif
 
 # include "ft_printf.h"
 # include "mlx.h"
 # include <math.h>
 # include <stdlib.h>
+
+typedef enum e_fractals
+{
+	MANDELBROT = 0,
+	JULIA = 1,
+	SINH_MANDELBROT = 2
+}	t_fractals;
+
+typedef struct s_vector2
+{
+	int	x;
+	int	y;
+}	t_vector2;
 
 typedef struct s_complex
 {
@@ -39,24 +54,22 @@ typedef struct s_complex
 
 typedef struct s_data
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	double	x_max;
-	double	x_min;
-	double	y_max;
-	double	y_min;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	t_complex	max;
+	t_complex	min;
+	t_complex	offset;
+	t_complex	initial_z;
+	t_complex	initial_c;
+	t_fractals	type;
 }	t_data;
 
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*win;
-}	t_vars;
-
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		my_mlx_pixel_put(t_data *data, t_vector2 pos, int color);
 double		atod(const char *nptr);
 
 /*Color functions*/
@@ -70,8 +83,14 @@ t_complex	sinh_complx(t_complex num);
 t_complex	div_complx(t_complex a, t_complex b);
 double		complx_module(t_complex num);
 
-void		draw_mandelbrot(t_data *img);
-void		draw_sinh_mandelbrot(t_data *img);
-void		draw_julia(t_data *img, double c_real, double c_img);
+/*Fractal render*/
+void		redraw_fractal(t_data *data);
+void		draw_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
+void		draw_sinh_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
+void		draw_julia(t_data *img, t_complex z, t_vector2 pos);
 
+/*Handlers*/
+int			key_handler(int keycode, t_data *vars);
+
+int			close(t_data *vars);
 #endif

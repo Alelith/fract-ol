@@ -1,25 +1,84 @@
 NAME = fractol
 
+DEF_COLOR = \033[0;39m
+GRAY = \033[0;90m
+RED = \033[0;91m
+GREEN = \033[0;92m
+YELLOW = \033[0;93m
+BLUE = \033[0;94m
+MAGENTA = \033[0;95m
+CYAN = \033[0;96m
+WHITE = \033[0;97m
+
 INCLUDES = includes/
 MLXINCLUDES = libs/mlx/
-CC = cc# -Wall -Wextra -Werror
+CC = cc #-Wall -Wextra -Werror
 
-SRC = src/main.c src/color_utils.c src/complex_utils.c src/mandelbrot_utils.c src/sinh_mandelbrot_utils.c src/julia_utils.c src/atod.c
+LIBS_DIR = libs/
+PRINTF_DIR = $(LIBS_DIR)printf/
+PRINTF = $(PRINTF_DIR)libftprintf.a
 
-LIBS = libs/mlx/libmlx.a libs/printf/libftprintf.a
+MLX_DIR = $(LIBS_DIR)mlx/
+MLX = $(MLX_DIR)libmlx.a
+
+SRC_DIR = src/
+OBJ_DIR = obj/
+
+MAIN = main
+
+COMPLEX_DIR = complex/
+COMPLEX = complex_operations complex_trigonometric
+
+FRACTALS_DIR = fractals/
+FRACTALS = fractal_render julia mandelbrot sinh_mandelbrot
+
+UTILS_DIR = utils/
+UTILS = atod color handlers
+
+SRC_FILES += main
+SRC_FILES += $(addprefix $(COMPLEX_DIR), $(COMPLEX))
+SRC_FILES += $(addprefix $(FRACTALS_DIR), $(FRACTALS))
+SRC_FILES += $(addprefix $(UTILS_DIR), $(UTILS))
+
+SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+OBJSF = .cache_exists
 
 all: $(NAME)
 
-$(NAME): $(LIBS)
-	$(CC) -D H=540 -D W=960 -g $(SRC) $(LIBS) -I $(INCLUDES) -Llibs/mlx -lmlx -lX11 -lXext -lm -lz -o $(NAME)
+$(NAME): $(MLX) $(PRINTF) $(OBJS)
+	@$(CC) -o $(NAME) $(OBJS) $(MLX) $(PRINTF) -I $(INC) -Lmlx -lXext -lX11 -lm
+	@echo "$(GREEN)Printf compiled!$(DEF_COLOR)"
 
-$(LIBS):
-	make -C libs/mlx/
-	make -C libs/printf/
+$(MLX):
+	@echo "$(YELLOW)Making MiniLibX...$(DEF_COLOR)"
+	@make -sC $(MLX_DIR)
+
+$(PRINTF):
+	@echo "$(YELLOW)Making printf...$(DEF_COLOR)"
+	@make -sC $(PRINTF_DIR)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJSF)
+	@echo "$(CYAN)Compiling: $<$(DEF_COLOR)"
+	@$(CC) -c $< -o $@ -I $(INCLUDES)
+	
+$(OBJSF):
+	@echo "$(MAGENTA)Creating dirs$(DEF_COLOR)"
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)$(COMPLEX_DIR)
+	@mkdir -p $(OBJ_DIR)$(FRACTALS_DIR)
+	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
+
+bonus : all
 
 clean:
-	make clean -C libs/mlx/
-	make fclean -C libs/printf/
-	rm -rf $(NAME)
+	@echo "$(RED)Removing .o object files...$(DEF_COLOR)"
+	@rm -rf $(OBJ_DIR)
+	@make clean -sC $(MLX_DIR)
+	@make fclean -sC $(PRINTF_DIR)
+
+fclean: clean
+	@echo "$(RED)Removing fractol...$(DEF_COLOR)"
+	@rm -f $(NAME)
 
 re: clean all

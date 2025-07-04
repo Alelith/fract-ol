@@ -6,7 +6,7 @@
 #    By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/29 19:17:42 by acesteve          #+#    #+#              #
-#    Updated: 2025/06/25 09:24:49 by acesteve         ###   ########.fr        #
+#    Updated: 2025/07/04 14:13:23 by acesteve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,11 +60,9 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)Printf compiled!$(DEF_COLOR)"
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJSF)
-	@echo "$(YELLOW)Compiling: $<$(DEF_COLOR)"
 	@$(CC) $(CFLAGS) -I $(INCLUDES) -g -c $< -o $@
 	
 $(OBJSF):
-	@echo "$(BLUE)Creating dirs$(DEF_COLOR)"
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)$(AUX_DIR)
 	@mkdir -p $(OBJS_DIR)$(MOD_DIR)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia_utils.c                                      :+:      :+:    :+:   */
+/*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 19:10:14 by acesteve          #+#    #+#             */
-/*   Updated: 2025/06/29 17:33:55 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:11:22 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,10 @@ static int	diverge(t_complex z, t_complex c, int iter, double limit)
 	return (0);
 }
 
-void	draw_julia(t_data *img, double c_real, double c_img)
+void	draw_julia(t_data *img, t_complex z, t_vector2 pos)
 {
-	t_complex	c;
-	t_complex	z;
-	int			i;
-	int			j;
 	int			dives;
 
-	i = -1;
-	j = -1;
-	c.real = c_real;
-	c.imag = c_img;
-	while (j++ < H)
-	{
-		while (i++ < W)
-		{
-			z.real = ((double)i / W - 0.5) * 4;
-			z.imag = ((double)j / H - 0.5) * (4 * ((double)H / W));
-			dives = diverge(z, c, ITER * 2, 2.0);
-			my_mlx_pixel_put(img, i, j,
-				get_color_hsv((ITER * 2 - dives) / 2));
-		}
-		i = -1;
-	}
+	dives = diverge(z, img -> initial_c, ITER * 2, 2.0);
+	my_mlx_pixel_put(img, pos, get_color_hsv((ITER * 2 - dives) / 2));
 }
