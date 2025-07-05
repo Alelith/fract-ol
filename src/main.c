@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 09:22:47 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/05 17:40:57 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:57:00 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,12 @@ int	main(int argc, char **argv)
 	if ((argc != 2 && is_mandelbrot(argv[1]))
 		|| (argc != 4 && is_julia(argv[1])))
 	{
+		ft_printf("\033[0;91mPlease introduce a valid parameter\n");
+		ft_printf("\033[0;39mValid parameters:\n");
+		ft_printf("\033[0;92m\tmandelbrot\n");
+		ft_printf("\033[0;95m\tjulia \033[0;93mx y\n");
+		ft_printf("\033[0;96m\teye\n");
+		ft_printf("\033[0;94m\tsinh\n");
 		exit(0);
 	}
 	initial_conditions(&vars, argv);
