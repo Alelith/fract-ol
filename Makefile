@@ -33,7 +33,7 @@ FRACTALS_DIR = fractals/
 FRACTALS = fractal_render julia mandelbrot sinh_mandelbrot eye_mandelbrot
 
 UTILS_DIR = utils/
-UTILS = atod color handlers
+UTILS = atod color handlers img_manag string
 
 SRC_FILES += main
 SRC_FILES += $(addprefix $(COMPLEX_DIR), $(COMPLEX))

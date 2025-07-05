@@ -1,22 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_trigonometric.c                            :+:      :+:    :+:   */
+/*   string.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/04 13:30:57 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/05 16:30:42 by acesteve         ###   ########.fr       */
+/*   Created: 2025/07/05 16:34:28 by acesteve          #+#    #+#             */
+/*   Updated: 2025/07/05 17:25:35 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract_ol.h"
-
-t_complex	sinh_complx(t_complex num)
+int	ft_strcmp(char *a, char *b)
 {
-	t_complex	result;
+	while (*a && *b)
+	{
+		if (*a != *b)
+			return (0);
+		a++;
+		b++;
+	}
+	return (*a == *b);
+}
 
-	result.real = sinh(num.real) * cos(num.imag);
-	result.imag = cosh(num.real) * sin(num.imag);
-	return (result);
+int	is_mandelbrot(char *type)
+{
+	if (ft_strcmp(type, "mandelbrot")
+		|| ft_strcmp(type, "sinh")
+		|| ft_strcmp(type, "eye"))
+		return (1);
+	return (0);
+}
+
+int	is_julia(char *type)
+{
+	if (ft_strcmp(type, "julia"))
+		return (1);
+	return (0);
 }

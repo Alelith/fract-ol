@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:19:24 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/04 16:22:43 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:30:24 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # endif
 
 # ifndef ITER
-#  define ITER 40
+#  define ITER 60
 # endif
 
 # ifndef PI
@@ -38,7 +38,7 @@ typedef enum e_fractals
 	MANDELBROT = 0,
 	JULIA = 1,
 	SINH_MANDELBROT = 2,
-	DRAGON_MANDELBROT = 3
+	EYE_MANDELBROT = 3
 }	t_fractals;
 
 typedef struct s_vector2
@@ -70,30 +70,34 @@ typedef struct s_data
 	t_fractals	type;
 }	t_data;
 
-void		my_mlx_pixel_put(t_data *data, t_vector2 pos, int color);
 double		atod(const char *nptr);
+void		my_mlx_pixel_put(t_data *data, t_vector2 pos, int color);
 
 /*Color functions*/
-int			psychedelic_color(int iter, double phase);
 int			get_color_hsv(int iter);
+int			psychedelic_color(int iter, double phase);
 
 /*Complex numbers operators*/
-t_complex	multiply_complx(t_complex a, t_complex b);
-t_complex	sum_complx(t_complex a, t_complex b);
-t_complex	sinh_complx(t_complex num);
-t_complex	div_complx(t_complex a, t_complex b);
-t_complex	inv_complx(t_complex a);
 double		complx_module(t_complex num);
+t_complex	inv_complx(t_complex a);
+t_complex	sinh_complx(t_complex num);
+t_complex	sum_complx(t_complex a, t_complex b);
+t_complex	div_complx(t_complex a, t_complex b);
+t_complex	multiply_complx(t_complex a, t_complex b);
 
 /*Fractal render*/
 void		redraw_fractal(t_data *data);
-void		draw_eye_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
-void		draw_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
-void		draw_sinh_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_julia(t_data *img, t_complex z, t_vector2 pos);
+void		draw_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
+void		draw_eye_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
+void		draw_sinh_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 
 /*Handlers*/
 int			key_handler(int keycode, t_data *vars);
+int			zoom(int mousecode, int x, int y, t_data *img);
 
+int			ft_strcmp(char *a, char *b);
+int			is_mandelbrot(char *type);
+int			is_julia(char *type);
 int			close(t_data *vars);
 #endif

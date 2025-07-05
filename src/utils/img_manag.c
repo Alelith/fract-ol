@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_trigonometric.c                            :+:      :+:    :+:   */
+/*   img_manag.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/04 13:30:57 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/05 16:30:42 by acesteve         ###   ########.fr       */
+/*   Created: 2025/07/05 16:38:12 by acesteve          #+#    #+#             */
+/*   Updated: 2025/07/05 16:38:56 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
 
-t_complex	sinh_complx(t_complex num)
+void	my_mlx_pixel_put(t_data *data, t_vector2 pos, int color)
 {
-	t_complex	result;
+	char	*dst;
 
-	result.real = sinh(num.real) * cos(num.imag);
-	result.imag = cosh(num.real) * sin(num.imag);
-	return (result);
+	dst = data->addr;
+	dst += (pos.y * data->line_length + pos.x * (data->bits_per_pixel / 8));
+	*((unsigned int *)dst) = color;
 }
