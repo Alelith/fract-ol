@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:27:37 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/04 15:11:37 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:44:54 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	draw_mandelbrot(t_data *img, t_complex c, t_vector2 pos)
 
 	dives = diverge(img -> initial_z, c, ITER, 2.0);
 	if (dives > 0)
-		my_mlx_pixel_put(img, pos, psychedelic_color(ITER - dives, 0.0));
+		my_mlx_pixel_put(img, pos, psychedelic_color(dives, img -> color_off));
 	else
 		my_mlx_pixel_put(img, pos, 0);
 }

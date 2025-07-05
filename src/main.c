@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 09:22:47 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/05 17:37:19 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:40:57 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	initial_variables(t_data *data, char **argv)
 
 static void	initial_conditions(t_data *data, char **argv)
 {
+	data -> color_off = 0.0;
 	data -> max.real = 2;
 	data -> max.imag = 2;
 	data -> min.real = -2;

@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 17:34:19 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/04 15:11:49 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:45:05 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_sinh_mandelbrot(t_data *img, t_complex c, t_vector2 pos)
 
 	dives = diverge(img -> initial_z, c, ITER, 2.0);
 	if (dives > 0)
-		my_mlx_pixel_put(img, pos, get_color_hsv(ITER - dives));
+		my_mlx_pixel_put(img, pos, get_color_hsv(dives));
 	else
 		my_mlx_pixel_put(img, pos, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:19:24 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/05 17:30:24 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:40:41 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ typedef struct s_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
+	double		color_off;
 	t_complex	max;
 	t_complex	min;
-	t_complex	offset;
 	t_complex	initial_z;
 	t_complex	initial_c;
 	t_fractals	type;

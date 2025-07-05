@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:37:58 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/05 17:31:09 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:42:30 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	zoom(int mousecode, int x, int y, t_data *img)
 	img -> max.imag *= zoom;
 	img -> min.real *= zoom;
 	img -> min.imag *= zoom;
+	img -> color_off += 0.125;
 	redraw_fractal(img);
 	return (0);
 }
