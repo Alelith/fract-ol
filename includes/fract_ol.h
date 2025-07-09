@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:19:24 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/05 17:40:41 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/05 19:41:37 by lilith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define FRACT_OL_H
 
 # ifndef WIDTH
-#  define SCREEN_WIDTH 700
+#  define SCREEN_WIDTH 960
 # endif
 # ifndef HEIGHT
-#  define SCREEN_HEIGHT 700
+#  define SCREEN_HEIGHT 540
 # endif
 
 # ifndef ITER

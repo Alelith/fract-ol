@@ -12,7 +12,7 @@ WHITE = \033[0;97m
 
 INCLUDES = includes/
 MLXINCLUDES = libs/mlx/
-CC = cc #-Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror
 
 LIBS_DIR = libs/
 PRINTF_DIR = $(LIBS_DIR)printf/

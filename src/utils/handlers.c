@@ -6,7 +6,7 @@
 /*   By: acesteve <acesteve@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:37:58 by acesteve          #+#    #+#             */
-/*   Updated: 2025/07/05 17:42:30 by acesteve         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:37:37 by acesteve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	zoom(int mousecode, int x, int y, t_data *img)
 {
 	double	zoom;
 
+	if (x < 0 && y < 0)
+		return (0);
 	if (mousecode == 4)
 		zoom = 0.9;
 	else if (mousecode == 5)
