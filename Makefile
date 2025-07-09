@@ -48,7 +48,7 @@ all: $(NAME)
 
 $(NAME): $(MLX) $(PRINTF) $(OBJS)
 	@$(CC) -o $(NAME) $(OBJS) $(MLX) $(PRINTF) -I $(INC) -Lmlx -lXext -lX11 -lm
-	@echo "$(GREEN)Printf compiled!$(DEF_COLOR)"
+	@echo "$(GREEN)Fractol compiled!$(DEF_COLOR)"
 
 $(MLX):
 	@echo "$(YELLOW)Making MiniLibX...$(DEF_COLOR)"
