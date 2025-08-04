@@ -47,7 +47,7 @@ OBJSF = .cache_exists
 all: $(NAME)
 
 $(NAME): $(MLX) $(PRINTF) $(OBJS)
-	@$(CC) -o $(NAME) $(OBJS) $(MLX) $(PRINTF) -I $(INC) -Lmlx -lXext -lX11 -lm
+	@$(CC) -o $(NAME) $(OBJS) $(MLX) $(PRINTF) -I $(INC) -Lmlx -lXext -lX11 -lm -lpthread
 	@echo "$(GREEN)Fractol compiled!$(DEF_COLOR)"
 
 $(MLX):
