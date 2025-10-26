@@ -1,5 +1,18 @@
+/**
+ * @file fractal_render.c
+ * @author Lilith Estévez Boeta
+ * @brief This file contains the main fractal rendering engine with multi-threaded rendering and coordinate mapping functions.
+ */
+
 #include "fract_ol.h"
 
+/**
+ * @brief Converts screen coordinates to complex plane coordinates for Mandelbrot set.
+ * @details Maps pixel coordinates to complex numbers in the Mandelbrot plane.
+ * 
+ * @param data Pointer to the main data structure containing zoom and bounds information.
+ * @param screen_pos The screen position (pixel coordinates).
+ */
 static void	calculate_c_off(t_data *data, t_vector2 screen_pos)
 {
 	t_complex	c;
@@ -14,6 +27,13 @@ static void	calculate_c_off(t_data *data, t_vector2 screen_pos)
 	draw_mandelbrot(data, c, screen_pos);
 }
 
+/**
+ * @brief Converts screen coordinates to complex plane coordinates for Julia set.
+ * @details Maps pixel coordinates to complex numbers for initial Z values in Julia set.
+ * 
+ * @param data Pointer to the main data structure containing zoom and bounds information.
+ * @param screen_pos The screen position (pixel coordinates).
+ */
 static void	calculate_z(t_data *data, t_vector2 screen_pos)
 {
 	t_complex	z;
@@ -28,6 +48,13 @@ static void	calculate_z(t_data *data, t_vector2 screen_pos)
 	draw_julia(data, z, screen_pos);
 }
 
+/**
+ * @brief Converts screen coordinates to complex plane coordinates for Eye/Sinh Mandelbrot.
+ * @details Maps pixel coordinates to complex numbers for Eye and Sinh Mandelbrot sets.
+ * 
+ * @param data Pointer to the main data structure containing zoom and bounds information.
+ * @param screen_pos The screen position (pixel coordinates).
+ */
 static void	calculate_c(t_data *data, t_vector2 screen_pos)
 {
 	t_complex	c;
@@ -47,11 +74,28 @@ static void	calculate_c(t_data *data, t_vector2 screen_pos)
 		draw_eye_mandelbrot(data, c, screen_pos);
 }
 
+/**
+ * @brief Calculates the maximum number of iterations based on zoom factor.
+ * @details Dynamically adjusts iteration depth for better visual effects at different zoom levels.
+ * 
+ * @param data Pointer to the main data structure containing the zoom factor.
+ * @param max_iter The base maximum number of iterations.
+ * 
+ * @return int The adjusted maximum number of iterations.
+ */
 int	calculate_iterations(t_data *data, int max_iter)
 {
 	return (max_iter * log2(data->zoom_factor + 1));
 }
 
+/**
+ * @brief Renders a portion of the fractal in a separate thread.
+ * @details Thread worker function that calculates and renders fractal pixels for assigned rows.
+ * 
+ * @param arg Pointer to t_thread_data structure containing thread-specific parameters.
+ * 
+ * @return void* Returns NULL.
+ */
 void	*render_fractal_threaded(void *arg)
 {
 	t_thread_data	*thread_data;
@@ -83,6 +127,12 @@ void	*render_fractal_threaded(void *arg)
 	return (NULL);
 }
 
+/**
+ * @brief Renders the entire fractal using multi-threading.
+ * @details Distributes fractal rendering across multiple threads and displays the result.
+ * 
+ * @param data Pointer to the main data structure containing fractal parameters and window info.
+ */
 void	redraw_fractal(t_data *data)
 {
 	pthread_t		threads[NUM_THREADS];

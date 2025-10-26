@@ -1,5 +1,21 @@
+/**
+ * @file color.c
+ * @author Lilith Estévez Boeta
+ * @brief This file contains color generation functions including HSV to RGB conversion and psychedelic color schemes.
+ */
+
 #include "fract_ol.h"
 
+/**
+ * @brief Combines TRGB components into a single color value.
+ * 
+ * @param t Transparency/Alpha channel value (0-255).
+ * @param r Red channel value (0-255).
+ * @param g Green channel value (0-255).
+ * @param b Blue channel value (0-255).
+ * 
+ * @return int Color value in TRGB format (0xTTRRGGBB).
+ */
 static int	get_trgb(double t, double r, double g, double b)
 {
 	int	it;
@@ -20,6 +36,16 @@ static int	get_trgb(double t, double r, double g, double b)
 	return (res);
 }
 
+/**
+ * @brief Fills an RGB array with the specified color components.
+ * 
+ * @param a Red channel component (0-1 range).
+ * @param b Green channel component (0-1 range).
+ * @param c Blue channel component (0-1 range).
+ * @param rgb Pointer to array of 3 doubles to store RGB values.
+ * 
+ * @return void
+ */
 static void	fill_rgb(double a, double b, double c, double *rgb)
 {
 	rgb[0] = a;
@@ -27,6 +53,16 @@ static void	fill_rgb(double a, double b, double c, double *rgb)
 	rgb[2] = c;
 }
 
+/**
+ * @brief Converts HSV color space to RGB color space.
+ * 
+ * @param h Hue value (0-360 degrees).
+ * @param s Saturation value (0-1).
+ * @param v Value/Brightness (0-1).
+ * @param out Pointer to output array of 3 ints for RGB values (0-255).
+ * 
+ * @return void
+ */
 static void	hsv_to_rgb(double h, double s, double v, int *out)
 {
 	double	c;
@@ -56,6 +92,15 @@ static void	hsv_to_rgb(double h, double s, double v, int *out)
 	out[2] = (int)((rgb[2] + m) * 255);
 }
 
+/**
+ * @brief Generates a color based on iteration count using HSV color model.
+ * @details Maps iteration count to hue while maintaining saturation and value.
+ * 
+ * @param iter Current iteration count (divergence measure).
+ * @param max_iter Maximum number of iterations.
+ * 
+ * @return int Color value in TRGB format (0xTTRRGGBB).
+ */
 int	get_color_hsv(int iter, int max_iter)
 {
 	double	t;
@@ -77,6 +122,16 @@ int	get_color_hsv(int iter, int max_iter)
 	return (get_trgb(255, rgb[0], rgb[1], rgb[2]));
 }
 
+/**
+ * @brief Generates a psychedelic color based on iteration count using sinusoidal waves.
+ * @details Uses sine functions with different phase offsets for each RGB channel.
+ * 
+ * @param iter Current iteration count (divergence measure).
+ * @param phase Phase offset for the sine waves (for animation).
+ * @param iterations Maximum number of iterations.
+ * 
+ * @return int Color value in TRGB format (0xTTRRGGBB).
+ */
 int	psychedelic_color(int iter, double phase, int iterations)
 {
 	double	t;

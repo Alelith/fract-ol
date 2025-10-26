@@ -1,5 +1,17 @@
+/**
+ * @file main.c
+ * @author Lilith Estévez Boeta
+ * @brief Main entry point of the Fract-ol application with window initialization and argument validation.
+ */
+
 #include "fract_ol.h"
 
+/**
+ * @brief Initializes the initial Z or C values based on the fractal type.
+ * 
+ * @param data Pointer to the main data structure containing fractal parameters.
+ * @param argv Command line arguments containing the fractal type specification.
+ */
 static void	initial_variables(t_data *data, char **argv)
 {
 	if (str_compare_all(argv[1], "mandelbrot"))
@@ -24,6 +36,13 @@ static void	initial_variables(t_data *data, char **argv)
 	}
 }
 
+/**
+ * @brief Sets up the initial conditions for the fractal rendering.
+ * @details Initializes zoom, color offset, coordinate bounds, and fractal type.
+ * 
+ * @param data Pointer to the main data structure to be initialized.
+ * @param argv Command line arguments containing the fractal type specification.
+ */
 static void	initial_conditions(t_data *data, char **argv)
 {
 	data -> color_off = 0.0;
@@ -43,6 +62,12 @@ static void	initial_conditions(t_data *data, char **argv)
 		data -> type = JULIA;
 }
 
+/**
+ * @brief Initializes the MLX window and sets up event handlers.
+ * @details Creates the rendering window, image buffer, and registers input handlers.
+ * 
+ * @param vars Pointer to the main data structure containing window parameters.
+ */
 void	init_window(t_data *vars)
 {
 	pthread_mutex_init(&vars->img_mutex, NULL);
@@ -61,6 +86,15 @@ void	init_window(t_data *vars)
 	mlx_loop(vars -> mlx);
 }
 
+/**
+ * @brief Main entry point of the fractal renderer application.
+ * @details Validates command line arguments and initializes the fractal rendering window.
+ * 
+ * @param argc The number of command line arguments.
+ * @param argv Array of command line arguments (fractal type and optional parameters).
+ * 
+ * @return int Exit status code.
+ */
 int	main(int argc, char **argv)
 {
 	t_data	vars;
