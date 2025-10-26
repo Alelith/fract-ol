@@ -72,6 +72,8 @@ static void	calculate_c(t_data *data, t_vector2 screen_pos)
 		draw_sinh_mandelbrot(data, c, screen_pos);
 	else if (data -> type == EYE_MANDELBROT)
 		draw_eye_mandelbrot(data, c, screen_pos);
+	else if (data -> type == DRAGON_MANDELBROT)
+		draw_dragon_mandelbrot(data, c, screen_pos);
 }
 
 /**
@@ -120,7 +122,8 @@ void	*render_fractal_threaded(void *arg)
 			else if (data->type == JULIA)
 				calculate_z(data, screen_pos);
 			else if (data->type == SINH_MANDELBROT
-				|| data->type == EYE_MANDELBROT)
+				|| data->type == EYE_MANDELBROT
+				|| data->type == DRAGON_MANDELBROT)
 				calculate_c(data, screen_pos);
 		}
 	}

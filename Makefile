@@ -29,7 +29,7 @@ COMPLEX_DIR = complex/
 COMPLEX = complex_operations complex_trigonometric
 
 FRACTALS_DIR = fractals/
-FRACTALS = fractal_render julia mandelbrot sinh_mandelbrot eye_mandelbrot
+FRACTALS = fractal_render julia mandelbrot sinh_mandelbrot eye_mandelbrot dragon_mandelbrot
 
 UTILS_DIR = utils/
 UTILS = color handlers img_manag string

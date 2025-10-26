@@ -18,7 +18,8 @@ int	is_mandelbrot(char *type)
 {
 	if (str_compare_all(type, "mandelbrot")
 		|| str_compare_all(type, "sinh")
-		|| str_compare_all(type, "eye"))
+		|| str_compare_all(type, "eye")
+		|| str_compare_all(type, "dragon"))
 		return (1);
 	return (0);
 }

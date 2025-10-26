@@ -29,6 +29,11 @@ static void	initial_variables(t_data *data, char **argv)
 		data -> initial_z.real = 0;
 		data -> initial_z.imag = 0;
 	}
+	else if (str_compare_all(argv[1], "dragon"))
+	{
+		data -> initial_z.real = 1;
+		data -> initial_z.imag = 0.1;
+	}
 	else if (str_compare_all(argv[1], "julia"))
 	{
 		data -> initial_c.real = str_to_float(argv[2]);
@@ -60,6 +65,8 @@ static void	initial_conditions(t_data *data, char **argv)
 		data -> type = EYE_MANDELBROT;
 	else if (str_compare_all(argv[1], "julia"))
 		data -> type = JULIA;
+	else if (str_compare_all(argv[1], "dragon"))
+		data -> type = DRAGON_MANDELBROT;
 }
 
 /**

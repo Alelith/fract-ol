@@ -140,7 +140,8 @@ typedef enum e_fractals
 	MANDELBROT = 0,			/**< Classic Mandelbrot set: z = z² + c */
 	JULIA = 1,				/**< Julia set: z_{n+1} = z_n² + c with fixed parameter */
 	SINH_MANDELBROT = 2,	/**< Sinh Mandelbrot: z = sinh(z/c) */
-	EYE_MANDELBROT = 3		/**< Eye Mandelbrot: z = z³ * (1/c) */
+	EYE_MANDELBROT = 3,		/**< Eye Mandelbrot: z = z³ * (1/c) */
+	DRAGON_MANDELBROT = 4	/**< Dragon Mandelbrot: z = z³ * (1/c) */
 }	t_fractals;
 
 /**
@@ -231,6 +232,7 @@ void		draw_julia(t_data *img, t_complex z, t_vector2 pos);
 void		draw_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_eye_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_sinh_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
+void		draw_dragon_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 
 int			key_handler(int keycode, t_data *vars);
 int			zoom(int mousecode, int x, int y, t_data *img);
