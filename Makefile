@@ -10,13 +10,12 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-INCLUDES = includes/
-MLXINCLUDES = libs/mlx/
+INCLUDES = include/
 CC = cc -Wall -Wextra -Werror
 
 LIBS_DIR = libs/
-PRINTF_DIR = $(LIBS_DIR)printf/
-PRINTF = $(PRINTF_DIR)libftprintf.a
+PRINTF_DIR = $(LIBS_DIR)survival_lib/
+PRINTF = $(PRINTF_DIR)survivalib.a
 
 MLX_DIR = $(LIBS_DIR)mlx/
 MLX = $(MLX_DIR)libmlx.a
@@ -33,7 +32,7 @@ FRACTALS_DIR = fractals/
 FRACTALS = fractal_render julia mandelbrot sinh_mandelbrot eye_mandelbrot
 
 UTILS_DIR = utils/
-UTILS = atod color handlers img_manag string
+UTILS = color handlers img_manag string
 
 SRC_FILES += main
 SRC_FILES += $(addprefix $(COMPLEX_DIR), $(COMPLEX))
