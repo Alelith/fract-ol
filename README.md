@@ -53,14 +53,38 @@ A cubic variation using `z = z³ + 1/c`, producing three-fold symmetric patterns
 ## 📁 Project Structure
 
 ```
-fract/
+fract-ol/
 ├── Makefile                    # Build configuration with pthread support
 ├── README.md                   # Project documentation
-├── includes/
-│   └── fract_ol.h             # Main header with all definitions
+├── include/                    # Header files
+│   ├── fract_ol.h             # Main header with all definitions
+│   ├── mlx.h                  # MiniLibX graphics library header
+│   ├── mlx_int.h              # MiniLibX internal header
+│   └── survival_lib.h         # Survival library header
 ├── libs/
-│   ├── mlx/                   # MiniLibX graphics library
-│   └── printf/                # Custom printf implementation
+│   ├── mlx/                   # MiniLibX graphics library source
+│   │   ├── Makefile           # MLX build configuration
+│   │   ├── mlx.h              # MLX header file
+│   │   ├── mlx_init.c         # MLX initialization
+│   │   ├── mlx_new_window.c   # Window creation
+│   │   ├── mlx_new_image.c    # Image buffer management
+│   │   ├── mlx_pixel_put.c    # Pixel rendering
+│   │   ├── mlx_put_image_to_window.c # Display rendering
+│   │   ├── mlx_key_hook.c     # Keyboard event handling
+│   │   ├── mlx_mouse_hook.c   # Mouse event handling
+│   │   ├── mlx_hook.c         # General event hooks
+│   │   ├── mlx_loop.c         # Event loop
+│   │   └── ...                # Additional MLX utilities
+│   └── survival_lib/          # Custom utility library
+│       ├── Makefile           # Build configuration
+│       ├── include/
+│       │   └── survival_lib.h # Library header
+│       └── src/               # Implementation files
+│           ├── check/         # Character and string checking
+│           ├── conversion/    # Type conversion utilities
+│           ├── memory/        # Memory management
+│           ├── printf/        # Custom printf implementation
+│           └── string/        # String manipulation
 └── src/
     ├── main.c                 # Application entry point and initialization
     ├── complex/               # Complex number mathematics
@@ -76,21 +100,49 @@ fract/
         ├── handlers.c         # Mouse and keyboard event handling
         ├── color.c            # Advanced color mapping systems
         ├── img_manag.c        # High-performance pixel manipulation
-        ├── string.c           # String utilities and fractal type detection
-        └── atod.c             # ASCII to double conversion
+        └── string.c           # String utilities and fractal type detection
 ```
 
 ## 🛠 Installation
 
-### Prerequisites
+### ⚠️ Important Prerequisites
 
-- GCC compiler with C99 support
-- Make utility
-- X11 development libraries (Linux)
-- MiniLibX graphics library
-- pthread support
+**This project requires X11 libraries to compile and run on Linux systems.**
+
+- **Linux Users**: You must install X11 development libraries before building
+- **macOS Users**: X11/XQuartz support is required
+- **Windows Users**: This project is designed for Unix-like systems
+
+### Linux X11 Installation
+
+**Ubuntu/Debian:**
+```bash
+sudo apt-get update
+sudo apt-get install libx11-dev libxext-dev libxrandr-dev
+```
+
+**Fedora/RHEL:**
+```bash
+sudo dnf install libX11-devel libXext-devel libXrandr-devel
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S libx11 libxext libxrandr
+```
+
+### System Prerequisites
+
+- **Compiler**: GCC with C99 support
+- **Build Tool**: Make utility
+- **Graphics**: X11 development libraries (`libx11-dev`, `libxext-dev`, `libxrandr-dev`)
+- **Threading**: pthread support (usually included with GCC)
+- **Memory**: Minimum 512MB RAM for complex fractals
+- **CPU**: Multi-core processor recommended for optimal performance
 
 ### Build Instructions
+
+**Ensure X11 development libraries are installed before proceeding.**
 
 ```bash
 # Clone the repository
@@ -103,18 +155,29 @@ make
 # Clean build files
 make clean
 
-# Complete cleanup
+# Complete cleanup including libraries
 make fclean
 
-# Rebuild everything
+# Rebuild everything from scratch
 make re
 ```
 
-### System Requirements
+### Troubleshooting Build Issues
 
-- **Linux**: X11 libraries (`libx11-dev`, `libxext-dev`)
-- **Memory**: Minimum 512MB RAM for complex fractals
-- **CPU**: Multi-core processor recommended for optimal performance
+If you encounter compilation errors related to X11:
+
+1. **Verify X11 is installed**:
+   ```bash
+   pkg-config --cflags --libs x11
+   ```
+
+2. **Install missing libraries**:
+   - See Linux X11 Installation section above
+
+3. **Check compiler compatibility**:
+   ```bash
+   gcc --version  # Should be GCC 5.0 or newer
+   ```
 
 ## 🚀 Usage
 
