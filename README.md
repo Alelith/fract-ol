@@ -20,12 +20,12 @@ El proyecto implementa cuatro tipos de fractales diferentes y proporciona una in
 
 - [Descripción](#-descripción)
 - [Características](#-características)
-- [Tecnologías utilizadas](#-tecnologías-utilizadas)
-- [Arquitectura](#-arquitectura)
+- [Tecnologías utilizadas](#%EF%B8%8F-tecnologías-utilizadas)
+- [Arquitectura](#%EF%B8%8F-arquitectura)
 - [Estructura del proyecto](#-estructura-del-proyecto)
 - [Instalación](#-instalación)
-- [Ejecución](#-ejecución)
-- [Configuración](#-configuración)
+- [Ejecución](#%EF%B8%8F-ejecución)
+- [Configuración](#%EF%B8%8F-configuración)
 - [Uso o ejemplos](#-uso-o-ejemplos)
 - [Capturas o demostración](#-capturas-o-demostración)
 - [Documentación](#-documentación)
@@ -33,7 +33,7 @@ El proyecto implementa cuatro tipos de fractales diferentes y proporciona una in
 - [Aprendizajes y mejoras futuras](#-aprendizajes-y-mejoras-futuras)
 - [Créditos y agradecimientos](#-créditos-y-agradecimientos)
 - [Licencia](#-licencia)
-- [Autora](#-autora)
+- [Autora](#%E2%80%8D-autora)
 
 ---
 
