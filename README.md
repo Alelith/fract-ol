@@ -3,7 +3,7 @@
 ![Estado](https://img.shields.io/badge/estado-Completado-blue)
 ![Lenguaje](https://img.shields.io/badge/lenguaje-C-orange)
 ![Librería%20Gráfica](https://img.shields.io/badge/gráficos-SDL2-yellow)
-![Licencia](https://img.shields.io/badge/licencia-MIT-green)
+![Licencia](https://img.shields.io/badge/licencia-GPL3-green)
 ![Última actualización](https://img.shields.io/github/last-commit/Alelith/fract-ol)
 
 ---
@@ -155,7 +155,7 @@ fract-ol/
 │           └── string/              # Funciones de string
 ├── Makefile                         # Compilación del proyecto
 ├── Doxyfile                         # Configuración de documentación
-├── LICENSE                          # Licencia MIT
+├── LICENSE                          # Licencia GPL3
 └── README.md                        # Este archivo
 ```
 
@@ -422,15 +422,15 @@ La documentación incluye:
 
 ## 📜 Licencia
 
-Este proyecto está licenciado bajo la **Licencia MIT** - ver el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está licenciado bajo la **Licencia GNU General Public License v3 (GPL3)** - ver el archivo [LICENSE](LICENSE) para más detalles.
 
-La licencia MIT permite:
-- ✅ Uso comercial y privado
-- ✅ Modificación del código
-- ✅ Distribución
-- ✅ Uso en patentes
+La licencia GPL3 requiere:
+- 📋 Incluir el aviso de licencia y copyright
+- 📝 Documentar cambios realizados
+- 📦 Disponibilidad de código fuente
+- 🔄 Cambios bajo la misma licencia
 
-Con la condición de incluir el aviso de licencia y copyright.
+Cualquier trabajo derivado debe ser distribuido bajo la misma licencia GPL3.
 
 ---
 
