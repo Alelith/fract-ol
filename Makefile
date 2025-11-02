@@ -62,7 +62,9 @@ $(OBJSF):
 	@mkdir -p $(OBJ_DIR)$(FRACTALS_DIR)
 	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
 
-bonus : all
+docs:
+	@echo "$(BLUE)Generating documentation...$(DEF_COLOR)"
+	@doxygen Doxyfile
 
 clean:
 	@echo "$(RED)Removing .o object files...$(DEF_COLOR)"
