@@ -8,7 +8,7 @@
 
 /**
  * @brief Closes the application window and cleans up resources.
- * @details Destroys the mutex and window, then exits the program.
+ * @details Destroys the mutex, texture, renderer, window, and SDL2, then exits the program.
  * 
  * @param vars Pointer to the main data structure.
  * 
@@ -16,23 +16,31 @@
  */
 int	close_window(t_data *vars)
 {
-	pthread_mutex_destroy(&vars->img_mutex);
-	mlx_destroy_window(vars->mlx, vars->win);
+	pthread_mutex_destroy(&vars->pixels_mutex);
+	if (vars->pixels)
+		free(vars->pixels);
+	if (vars->texture)
+		SDL_DestroyTexture(vars->texture);
+	if (vars->renderer)
+		SDL_DestroyRenderer(vars->renderer);
+	if (vars->window)
+		SDL_DestroyWindow(vars->window);
+	SDL_Quit();
 	exit(0);
 }
 
 /**
  * @brief Handles keyboard input events.
- * @details Currently closes the window when ESC key (65307) is pressed.
+ * @details Closes the window when ESC key is pressed.
  * 
- * @param keycode The key code of the pressed key.
+ * @param keycode The SDL key code of the pressed key.
  * @param vars Pointer to the main data structure.
  * 
  * @return int Always returns 0.
  */
-int	key_handler(int keycode, t_data *vars)
+int	key_handler(SDL_Keycode keycode, t_data *vars)
 {
-	if (keycode == 65307)
+	if (keycode == SDLK_ESCAPE)
 		close_window(vars);
 	return (0);
 }
@@ -41,25 +49,25 @@ int	key_handler(int keycode, t_data *vars)
  * @brief Handles mouse wheel zoom events.
  * @details Zooms in/out based on mouse wheel direction, centered at mouse cursor position.
  * 
- * @param mousecode Mouse button code (4 for scroll up, 5 for scroll down).
+ * @param mousecode Mouse button code (SDL_BUTTON_WHEELUP or SDL_BUTTON_WHEELDOWN).
  * @param x Mouse X coordinate.
  * @param y Mouse Y coordinate.
  * @param img Pointer to the main data structure.
  * 
  * @return int Always returns 0.
  */
-int	zoom(int mousecode, int x, int y, t_data *img)
+int	zoom(Uint8 mousecode, int x, int y, t_data *img)
 {
 	double		zoom_factor;
 	t_complex	mouse_point;
 	double		width;
 	double		height;
 
-	if (x < 0 && y < 0)
+	if (x < 0 || y < 0)
 		return (0);
-	if (mousecode == 4)
+	if (mousecode == SDL_BUTTON_LEFT)
 		zoom_factor = 1.1;
-	else if (mousecode == 5)
+	else if (mousecode == SDL_BUTTON_RIGHT)
 		zoom_factor = 0.9;
 	else
 		return (0);
@@ -76,7 +84,7 @@ int	zoom(int mousecode, int x, int y, t_data *img)
 	img->max.real = mouse_point.real + (img->max.real - mouse_point.real) / zoom_factor;
 	img->max.imag = mouse_point.imag + (img->max.imag - mouse_point.imag) / zoom_factor;
 
-	img -> color_off += 0.125;
+	img->color_off += 0.125;
 	redraw_fractal(img);
 	return (0);
 }

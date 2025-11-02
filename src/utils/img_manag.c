@@ -10,19 +10,21 @@
  * @brief Puts a pixel at a specific position in the image buffer.
  * @details Thread-safe pixel writing using mutex lock protection.
  * 
- * @param data Pointer to the main data structure containing image information.
+ * @param data Pointer to the main data structure containing pixel buffer information.
  * @param pos Screen position (x, y coordinates) of the pixel.
- * @param color Color value to write (TRGB format).
+ * @param color Color value to write (ARGB format).
  */
 void	my_mlx_pixel_put(t_data *data, t_vector2 pos, int color)
 {
-	char	*dst;
+	int	index;
 
-	pthread_mutex_lock(&data->img_mutex);
+	pthread_mutex_lock(&data->pixels_mutex);
 
-	dst = data->addr;
-	dst += (pos.y * data->line_length + pos.x * (data->bits_per_pixel / 8));
-	*((unsigned int *)dst) = color;
+	if (pos.x >= 0 && pos.x < SCREEN_WIDTH && pos.y >= 0 && pos.y < SCREEN_HEIGHT)
+	{
+		index = pos.y * SCREEN_WIDTH + pos.x;
+		data->pixels[index] = (Uint32)color;
+	}
 
-	pthread_mutex_unlock(&data->img_mutex);
+	pthread_mutex_unlock(&data->pixels_mutex);
 }

@@ -132,7 +132,7 @@ void	*render_fractal_threaded(void *arg)
 
 /**
  * @brief Renders the entire fractal using multi-threading.
- * @details Distributes fractal rendering across multiple threads and displays the result.
+ * @details Distributes fractal rendering across multiple threads.
  * 
  * @param data Pointer to the main data structure containing fractal parameters and window info.
  */
@@ -144,15 +144,12 @@ void	redraw_fractal(t_data *data)
 	int				remaining_rows;
 	int				i;
 
-	mlx_clear_window(data->mlx, data->win);
-
 	rows_per_thread = SCREEN_HEIGHT / NUM_THREADS;
 	remaining_rows = SCREEN_HEIGHT % NUM_THREADS;
 
 	i = -1;
 	while (++i < NUM_THREADS)
 	{
-
 		thread_data[i].data = data;
 		thread_data[i].thread_id = i;
 		thread_data[i].start_y = i * rows_per_thread;
@@ -176,6 +173,4 @@ void	redraw_fractal(t_data *data)
 	i = -1;
 	while (++i < NUM_THREADS)
 		pthread_join(threads[i], NULL);
-
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 }

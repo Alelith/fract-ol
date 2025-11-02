@@ -12,13 +12,11 @@ WHITE = \033[0;97m
 
 INCLUDES = include/
 CC = cc -Wall -Wextra -Werror
+CFLAGS = -lm -lpthread -lSDL2
 
-LIBS_DIR = libs/
+LIBS_DIR = lib/
 PRINTF_DIR = $(LIBS_DIR)survival_lib/
 PRINTF = $(PRINTF_DIR)survivalib.a
-
-MLX_DIR = $(LIBS_DIR)mlx/
-MLX = $(MLX_DIR)libmlx.a
 
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -45,13 +43,9 @@ OBJSF = .cache_exists
 
 all: $(NAME)
 
-$(NAME): $(MLX) $(PRINTF) $(OBJS)
-	@$(CC) -o $(NAME) $(OBJS) $(MLX) $(PRINTF) -I $(INC) -Lmlx -lXext -lX11 -lm -lpthread
+$(NAME): $(PRINTF) $(OBJS)
+	@$(CC) $(OBJS) $(PRINTF) -o $(NAME) $(CFLAGS)
 	@echo "$(GREEN)Fractol compiled!$(DEF_COLOR)"
-
-$(MLX):
-	@echo "$(YELLOW)Making MiniLibX...$(DEF_COLOR)"
-	@make -sC $(MLX_DIR)
 
 $(PRINTF):
 	@echo "$(YELLOW)Making printf...$(DEF_COLOR)"
@@ -59,7 +53,7 @@ $(PRINTF):
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJSF)
 	@echo "$(CYAN)Compiling: $<$(DEF_COLOR)"
-	@$(CC) -c $< -o $@ -I $(INCLUDES)
+	@$(CC) -c $< -o $@ -I $(INCLUDES) $(CFLAGS)
 	
 $(OBJSF):
 	@echo "$(MAGENTA)Creating dirs$(DEF_COLOR)"
@@ -73,7 +67,6 @@ bonus : all
 clean:
 	@echo "$(RED)Removing .o object files...$(DEF_COLOR)"
 	@rm -rf $(OBJ_DIR)
-	@make clean -sC $(MLX_DIR)
 	@make fclean -sC $(PRINTF_DIR)
 
 fclean: clean

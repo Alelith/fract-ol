@@ -122,7 +122,7 @@
 # endif
 
 # include "survival_lib.h"
-# include "mlx.h"
+# include <SDL2/SDL.h>
 # include <math.h>
 # include <stdlib.h>
 # include <pthread.h>
@@ -181,21 +181,20 @@ typedef struct s_complex
  */
 typedef struct s_data
 {
-	void			*mlx;				/**< MinilibX display connection pointer */
-	void			*win;				/**< MinilibX window pointer */
-	void			*img;				/**< MinilibX image buffer pointer */
-	char			*addr;				/**< Image buffer address (pixel data) */
-	int				bits_per_pixel;		/**< Bits per pixel for the image */
-	int				line_length;		/**< Bytes per line in the image buffer */
-	int				endian;				/**< Endian format (0=little, 1=big) */
-	double			color_off;			/**< Color phase offset for animation effects */
-	double			zoom_factor;		/**< Current zoom level (1.0 = no zoom) */
-	t_complex		max;				/**< Maximum bounds (top-right) in complex plane */
-	t_complex		min;				/**< Minimum bounds (bottom-left) in complex plane */
-	t_complex		initial_z;			/**< Initial Z value for Mandelbrot variants */
-	t_complex		initial_c;			/**< Initial C parameter for Julia set */
-	t_fractals		type;				/**< Current fractal type being rendered */
-	pthread_mutex_t	img_mutex;			/**< Mutex for thread-safe image buffer access */
+	SDL_Window		*window;				/**< SDL2 window pointer */
+	SDL_Renderer	*renderer;				/**< SDL2 renderer pointer */
+	SDL_Texture		*texture;				/**< SDL2 texture for pixel buffer */
+	Uint32			*pixels;				/**< Pixel buffer (32-bit ARGB) */
+	int				pitch;					/**< Pitch of the pixel buffer (bytes per row) */
+	double			color_off;				/**< Color phase offset for animation effects */
+	double			zoom_factor;			/**< Current zoom level (1.0 = no zoom) */
+	t_complex		max;					/**< Maximum bounds (top-right) in complex plane */
+	t_complex		min;					/**< Minimum bounds (bottom-left) in complex plane */
+	t_complex		initial_z;				/**< Initial Z value for Mandelbrot variants */
+	t_complex		initial_c;				/**< Initial C parameter for Julia set */
+	t_fractals		type;					/**< Current fractal type being rendered */
+	pthread_mutex_t	pixels_mutex;			/**< Mutex for thread-safe pixel buffer access */
+	int				running;				/**< Flag to control main loop (1 = running, 0 = exit) */
 }	t_data;
 
 /**
@@ -234,8 +233,8 @@ void		draw_eye_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_sinh_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_dragon_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 
-int			key_handler(int keycode, t_data *vars);
-int			zoom(int mousecode, int x, int y, t_data *img);
+int			key_handler(SDL_Keycode keycode, t_data *vars);
+int			zoom(Uint8 mousecode, int x, int y, t_data *img);
 
 int			is_mandelbrot(char *type);
 int			is_julia(char *type);

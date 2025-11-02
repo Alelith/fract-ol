@@ -70,27 +70,130 @@ static void	initial_conditions(t_data *data, char **argv)
 }
 
 /**
- * @brief Initializes the MLX window and sets up event handlers.
- * @details Creates the rendering window, image buffer, and registers input handlers.
+ * @brief Initializes the SDL2 window and rendering components.
+ * @details Creates window, renderer, texture, and sets up the main render loop.
  * 
  * @param vars Pointer to the main data structure containing window parameters.
  */
 void	init_window(t_data *vars)
 {
-	pthread_mutex_init(&vars->img_mutex, NULL);
+	pthread_mutex_init(&vars->pixels_mutex, NULL);
 
-	vars -> mlx = mlx_init();
-	vars -> win = mlx_new_window(vars -> mlx,
-			SCREEN_WIDTH, SCREEN_HEIGHT, "Fractol");
-	vars -> img = mlx_new_image(vars -> mlx,
-			SCREEN_WIDTH, SCREEN_HEIGHT);
-	vars -> addr = mlx_get_data_addr(vars -> img, &(vars -> bits_per_pixel),
-			&(vars -> line_length), &(vars -> endian));
-	mlx_key_hook(vars -> win, key_handler, vars);
-	mlx_mouse_hook(vars -> win, zoom, vars);
-	mlx_hook(vars -> win, 17, 0, close_window, vars);
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		print_format("\033[0;91mSDL2 initialization failed: %s\n", SDL_GetError());
+		exit(1);
+	}
+
+	vars->window = SDL_CreateWindow(
+		"Fractol",
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		SCREEN_WIDTH,
+		SCREEN_HEIGHT,
+		SDL_WINDOW_SHOWN
+	);
+
+	if (!vars->window)
+	{
+		print_format("\033[0;91mWindow creation failed: %s\n", SDL_GetError());
+		SDL_Quit();
+		exit(1);
+	}
+
+	vars->renderer = SDL_CreateRenderer(
+		vars->window,
+		-1,
+		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+	);
+
+	if (!vars->renderer)
+	{
+		print_format("\033[0;91mRenderer creation failed: %s\n", SDL_GetError());
+		SDL_DestroyWindow(vars->window);
+		SDL_Quit();
+		exit(1);
+	}
+
+	vars->texture = SDL_CreateTexture(
+		vars->renderer,
+		SDL_PIXELFORMAT_ARGB8888,
+		SDL_TEXTUREACCESS_STREAMING,
+		SCREEN_WIDTH,
+		SCREEN_HEIGHT
+	);
+
+	if (!vars->texture)
+	{
+		print_format("\033[0;91mTexture creation failed: %s\n", SDL_GetError());
+		SDL_DestroyRenderer(vars->renderer);
+		SDL_DestroyWindow(vars->window);
+		SDL_Quit();
+		exit(1);
+	}
+
+	vars->pixels = (Uint32 *)malloc(SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+	if (!vars->pixels)
+	{
+		print_format("\033[0;91mPixel buffer allocation failed\n");
+		SDL_DestroyTexture(vars->texture);
+		SDL_DestroyRenderer(vars->renderer);
+		SDL_DestroyWindow(vars->window);
+		SDL_Quit();
+		exit(1);
+	}
+
+	vars->pitch = SCREEN_WIDTH * sizeof(Uint32);
+	vars->running = 1;
+
 	redraw_fractal(vars);
-	mlx_loop(vars -> mlx);
+}
+
+/**
+ * @brief Main event loop for SDL2.
+ * @details Handles events and calls redraw when needed.
+ * 
+ * @param vars Pointer to the main data structure.
+ */
+void	sdl_loop(t_data *vars)
+{
+	SDL_Event	event;
+	int			mouse_x;
+	int			mouse_y;
+
+	while (vars->running)
+	{
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT)
+				vars->running = 0;
+			else if (event.type == SDL_KEYDOWN)
+				key_handler(event.key.keysym.sym, vars);
+			else if (event.type == SDL_MOUSEWHEEL)
+			{
+				SDL_GetMouseState(&mouse_x, &mouse_y);
+				if (event.wheel.direction == SDL_MOUSEWHEEL_NORMAL)
+				{
+					if (event.wheel.y > 0)
+						zoom(SDL_BUTTON_LEFT, mouse_x, mouse_y, vars);
+					else if (event.wheel.y < 0)
+						zoom(SDL_BUTTON_RIGHT, mouse_x, mouse_y, vars);
+				}
+				else
+				{
+					if (event.wheel.y > 0)
+						zoom(SDL_BUTTON_RIGHT, mouse_x, mouse_y, vars);
+					else if (event.wheel.y < 0)
+						zoom(SDL_BUTTON_LEFT, mouse_x, mouse_y, vars);
+				}
+			}
+		}
+
+		SDL_UpdateTexture(vars->texture, NULL, vars->pixels, vars->pitch);
+		SDL_RenderClear(vars->renderer);
+		SDL_RenderCopy(vars->renderer, vars->texture, NULL, NULL);
+		SDL_RenderPresent(vars->renderer);
+	}
 }
 
 /**
@@ -129,4 +232,5 @@ int	main(int argc, char **argv)
 	}
 	initial_conditions(&vars, argv);
 	init_window(&vars);
+	sdl_loop(&vars);
 }

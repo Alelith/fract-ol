@@ -26,8 +26,9 @@ Fract'ol is an interactive fractal explorer that brings the beauty of mathematic
 - **Real-time Interaction**: Mouse zoom, keyboard navigation, and live color cycling
 - **Complex Mathematics**: Full complex number arithmetic with trigonometric functions
 - **Advanced Color Systems**: HSV and psychedelic coloring with smooth gradients
-- **High Performance**: Direct memory manipulation for fast pixel rendering
+- **High Performance**: Direct pixel buffer manipulation for fast rendering
 - **Mathematical Precision**: Double-precision floating-point calculations
+- **Cross-Platform Graphics**: SDL2-based rendering for broad OS compatibility
 
 ### Supported Fractals
 
@@ -54,95 +55,94 @@ A cubic variation using `z = z³ + 1/c`, producing three-fold symmetric patterns
 
 ```
 fract-ol/
-├── Makefile                    # Build configuration with pthread support
-├── README.md                   # Project documentation
-├── include/                    # Header files
-│   ├── fract_ol.h             # Main header with all definitions
-│   ├── mlx.h                  # MiniLibX graphics library header
-│   ├── mlx_int.h              # MiniLibX internal header
-│   └── survival_lib.h         # Survival library header
-├── libs/
-│   ├── mlx/                   # MiniLibX graphics library source
-│   │   ├── Makefile           # MLX build configuration
-│   │   ├── mlx.h              # MLX header file
-│   │   ├── mlx_init.c         # MLX initialization
-│   │   ├── mlx_new_window.c   # Window creation
-│   │   ├── mlx_new_image.c    # Image buffer management
-│   │   ├── mlx_pixel_put.c    # Pixel rendering
-│   │   ├── mlx_put_image_to_window.c # Display rendering
-│   │   ├── mlx_key_hook.c     # Keyboard event handling
-│   │   ├── mlx_mouse_hook.c   # Mouse event handling
-│   │   ├── mlx_hook.c         # General event hooks
-│   │   ├── mlx_loop.c         # Event loop
-│   │   └── ...                # Additional MLX utilities
-│   └── survival_lib/          # Custom utility library
-│       ├── Makefile           # Build configuration
+├── Makefile                          # Build configuration with pthread support
+├── README.md                         # Project documentation
+├── include/                          # Header files
+│   ├── fract_ol.h                    # Main header with all definitions
+│   └── survival_lib.h                # Survival library header
+├── lib/
+│   └── survival_lib/                 # Custom utility library
+│       ├── Makefile                  # Build configuration
 │       ├── include/
-│       │   └── survival_lib.h # Library header
-│       └── src/               # Implementation files
-│           ├── check/         # Character and string checking
-│           ├── conversion/    # Type conversion utilities
-│           ├── memory/        # Memory management
-│           ├── printf/        # Custom printf implementation
-│           └── string/        # String manipulation
+│       │   └── survival_lib.h        # Library header
+│       └── src/                      # Implementation files
+│           ├── check/                # Character and string checking
+│           ├── conversion/           # Type conversion utilities
+│           ├── memory/               # Memory management
+│           ├── printf/               # Custom printf implementation
+│           └── string/               # String manipulation
 └── src/
-    ├── main.c                 # Application entry point and initialization
-    ├── complex/               # Complex number mathematics
+    ├── main.c                        # Application entry point and initialization
+    ├── complex/                      # Complex number mathematics
     │   ├── complex_operations.c      # Basic arithmetic operations
     │   └── complex_trigonometric.c   # Hyperbolic functions
-    ├── fractals/              # Fractal calculation engines
-    │   ├── fractal_render.c   # Main rendering coordination
-    │   ├── mandelbrot.c       # Classic Mandelbrot implementation
-    │   ├── julia.c            # Julia set implementation
-    │   ├── sinh_mandelbrot.c  # Hyperbolic sine variation
-    │   └── eye_mandelbrot.c   # Cubic eye variation
-    └── utils/                 # Support utilities
-        ├── handlers.c         # Mouse and keyboard event handling
-        ├── color.c            # Advanced color mapping systems
-        ├── img_manag.c        # High-performance pixel manipulation
-        └── string.c           # String utilities and fractal type detection
+    ├── fractals/                     # Fractal calculation engines
+    │   ├── fractal_render.c          # Main rendering coordination
+    │   ├── mandelbrot.c              # Classic Mandelbrot implementation
+    │   ├── julia.c                   # Julia set implementation
+    │   ├── sinh_mandelbrot.c         # Hyperbolic sine variation
+    │   └── eye_mandelbrot.c          # Cubic eye variation
+    └── utils/                        # Support utilities
+        ├── handlers.c                # Mouse and keyboard event handling
+        ├── color.c                   # Advanced color mapping systems
+        ├── img_manag.c               # High-performance pixel manipulation
+        └── string.c                  # String utilities and fractal type detection
 ```
 
 ## 🛠 Installation
 
 ### ⚠️ Important Prerequisites
 
-**This project requires X11 libraries to compile and run on Linux systems.**
+**This project uses SDL2 (Simple DirectMedia Layer) for cross-platform graphics rendering.**
 
-- **Linux Users**: You must install X11 development libraries before building
-- **macOS Users**: X11/XQuartz support is required
-- **Windows Users**: This project is designed for Unix-like systems
+- **All Platforms**: SDL2 development libraries are required
+- **Linux**: Install SDL2 dev package via package manager
+- **macOS**: Install via Homebrew or MacPorts
+- **Windows**: Pre-built SDL2 libraries available
 
-### Linux X11 Installation
+### SDL2 Installation
 
 **Ubuntu/Debian:**
 ```bash
 sudo apt-get update
-sudo apt-get install libx11-dev libxext-dev libxrandr-dev
+sudo apt-get install libsdl2-dev
 ```
 
 **Fedora/RHEL:**
 ```bash
-sudo dnf install libX11-devel libXext-devel libXrandr-devel
+sudo dnf install SDL2-devel
 ```
 
 **Arch Linux:**
 ```bash
-sudo pacman -S libx11 libxext libxrandr
+sudo pacman -S sdl2
 ```
+
+**macOS (Homebrew):**
+```bash
+brew install sdl2
+```
+
+**macOS (MacPorts):**
+```bash
+sudo port install libsdl2
+```
+
+**Windows:**
+Download from [SDL2 official website](https://www.libsdl.org/download-2.0.php)
 
 ### System Prerequisites
 
 - **Compiler**: GCC with C99 support
 - **Build Tool**: Make utility
-- **Graphics**: X11 development libraries (`libx11-dev`, `libxext-dev`, `libxrandr-dev`)
+- **Graphics**: SDL2 development libraries (`libsdl2-dev` or equivalent)
 - **Threading**: pthread support (usually included with GCC)
 - **Memory**: Minimum 512MB RAM for complex fractals
 - **CPU**: Multi-core processor recommended for optimal performance
 
 ### Build Instructions
 
-**Ensure X11 development libraries are installed before proceeding.**
+**Ensure SDL2 development libraries are installed before proceeding.**
 
 ```bash
 # Clone the repository
@@ -164,15 +164,15 @@ make re
 
 ### Troubleshooting Build Issues
 
-If you encounter compilation errors related to X11:
+If you encounter compilation errors related to SDL2:
 
-1. **Verify X11 is installed**:
+1. **Verify SDL2 is installed**:
    ```bash
-   pkg-config --cflags --libs x11
+   pkg-config --cflags --libs sdl2
    ```
 
 2. **Install missing libraries**:
-   - See Linux X11 Installation section above
+   - See SDL2 Installation section above
 
 3. **Check compiler compatibility**:
    ```bash
@@ -250,9 +250,10 @@ The fractal renderer uses 8 parallel threads to optimize computation:
 
 ### Optimization Techniques
 
-1. **Direct Memory Access**: Bypasses MLX pixel functions for speed
-2. **Parallel Computation**: Multi-core CPU utilization
-3. **Efficient Algorithms**: Optimized complex number operations
+1. **Direct Pixel Buffer Access**: Efficient memory manipulation for fast rendering
+2. **Parallel Computation**: Multi-core CPU utilization with 8 threads
+3. **SDL2 Streaming Texture**: Optimized texture updates for real-time rendering
+4. **Efficient Algorithms**: Optimized complex number operations
 
 ## 🔧 Implementation Details
 
@@ -269,14 +270,16 @@ typedef struct s_complex {
 #### Application Data Structure
 ```c
 typedef struct s_data {
-    void        *mlx;           // MLX library instance
-    void        *win;           // Window pointer
-    void        *img;           // Image buffer
-    char        *addr;          // Direct memory access
-    double      color_off;      // Animation phase
-    t_complex   max;            // View bounds maximum
-    t_complex   min;            // View bounds minimum
-    t_fractals  type;           // Current fractal type
+    SDL_Window      *window;        // SDL2 window pointer
+    SDL_Renderer    *renderer;      // SDL2 renderer pointer
+    SDL_Texture     *texture;       // SDL2 texture for pixel buffer
+    Uint32          *pixels;        // Pixel buffer (32-bit ARGB)
+    int             pitch;          // Pitch of the pixel buffer (bytes per row)
+    double          color_off;      // Animation phase
+    t_complex       max;            // View bounds maximum
+    t_complex       min;            // View bounds minimum
+    t_fractals      type;           // Current fractal type
+    int             running;        // Main loop control flag
 } t_data;
 ```
 
