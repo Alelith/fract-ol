@@ -18,22 +18,22 @@ El proyecto implementa cuatro tipos de fractales diferentes y proporciona una in
 
 ## 🧩 Tabla de contenidos
 
-- [Descripción](#🧠-descripción)
-- [Características](#🌟-características)
-- [Tecnologías utilizadas](#⚙️-tecnologías-utilizadas)
-- [Arquitectura](#🏗️-arquitectura)
-- [Estructura del proyecto](#📂-estructura-del-proyecto)
-- [Instalación](#📦-instalación)
-- [Ejecución](#▶️-ejecución)
-- [Configuración](#⚙️-configuración)
-- [Uso o ejemplos](#🧪-uso-o-ejemplos)
-- [Capturas o demostración](#📸-capturas-o-demostración)
-- [Documentación](#📖-documentación)
-- [Errores conocidos / ToDo](#🐞-errores-conocidos--todo)
-- [Aprendizajes y mejoras futuras](#🧭-aprendizajes-y-mejoras-futuras)
-- [Créditos y agradecimientos](#🤝-créditos-y-agradecimientos)
-- [Licencia](#📜-licencia)
-- [Autora](#👩‍💻-autora)
+- [Descripción](#-descripción)
+- [Características](#-características)
+- [Tecnologías utilizadas](#%EF%B8%8F-tecnologías-utilizadas)
+- [Arquitectura](#%EF%B8%8F-arquitectura)
+- [Estructura del proyecto](#-estructura-del-proyecto)
+- [Instalación](#-instalación)
+- [Ejecución](#%EF%B8%8F-ejecución)
+- [Configuración](#%EF%B8%8F-configuración)
+- [Uso o ejemplos](#-uso-o-ejemplos)
+- [Capturas o demostración](#-capturas-o-demostración)
+- [Documentación](#-documentación)
+- [Errores conocidos / ToDo](#-errores-conocidos--todo)
+- [Aprendizajes y mejoras futuras](#-aprendizajes-y-mejoras-futuras)
+- [Créditos y agradecimientos](#-créditos-y-agradecimientos)
+- [Licencia](#-licencia)
+- [Autora](#%E2%80%8D-autora)
 
 ---
 
@@ -101,20 +101,20 @@ La aplicación está estructurada en módulos especializados:
 
 ```
 ┌─────────────────────────────────────┐
-│      Event Loop (Main Thread)        │
-│  - Handle zoom/input              │
-│  - Update fractal parameters      │
+│      Event Loop (Main Thread)       │
+│  - Handle zoom/input                │
+│  - Update fractal parameters        │
 └──────────────┬──────────────────────┘
                │
-               ├─→ [Worker Thread 1] → Compute Fractal Section
-               ├─→ [Worker Thread 2] → Compute Fractal Section
-               ├─→ [Worker Thread 3] → Compute Fractal Section
-               └─→ [Worker Thread 4+] → Compute Fractal Section
+               ├─ [Worker Thread 1] - Compute Fractal Section
+               ├─ [Worker Thread 2] - Compute Fractal Section
+               ├─ [Worker Thread 3] - Compute Fractal Section
+               └─ [Worker Thread 4+] - Compute Fractal Section
                │
                ↓
-        ┌─────────────────┐
-        │ Render to Screen│
-        └─────────────────┘
+        ┌──────────────────┐
+        │ Render to Screen │
+        └──────────────────┘
 ```
 
 ---
