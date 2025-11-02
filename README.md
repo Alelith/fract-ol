@@ -18,22 +18,22 @@ El proyecto implementa cuatro tipos de fractales diferentes y proporciona una in
 
 ## 🧩 Tabla de contenidos
 
-- [Descripción](#🧠-descripción)
-- [Características](#🌟-características)
-- [Tecnologías utilizadas](#⚙️-tecnologías-utilizadas)
-- [Arquitectura](#🏗️-arquitectura)
-- [Estructura del proyecto](#📂-estructura-del-proyecto)
-- [Instalación](#📦-instalación)
-- [Ejecución](#▶️-ejecución)
-- [Configuración](#⚙️-configuración)
-- [Uso o ejemplos](#🧪-uso-o-ejemplos)
-- [Capturas o demostración](#📸-capturas-o-demostración)
-- [Documentación](#📖-documentación)
-- [Errores conocidos / ToDo](#🐞-errores-conocidos--todo)
-- [Aprendizajes y mejoras futuras](#🧭-aprendizajes-y-mejoras-futuras)
-- [Créditos y agradecimientos](#🤝-créditos-y-agradecimientos)
-- [Licencia](#📜-licencia)
-- [Autora](#👩‍💻-autora)
+- [Descripción](#-descripción)
+- [Características](#-características)
+- [Tecnologías utilizadas](#-tecnologías-utilizadas)
+- [Arquitectura](#-arquitectura)
+- [Estructura del proyecto](#-estructura-del-proyecto)
+- [Instalación](#-instalación)
+- [Ejecución](#-ejecución)
+- [Configuración](#-configuración)
+- [Uso o ejemplos](#-uso-o-ejemplos)
+- [Capturas o demostración](#-capturas-o-demostración)
+- [Documentación](#-documentación)
+- [Errores conocidos / ToDo](#-errores-conocidos--todo)
+- [Aprendizajes y mejoras futuras](#-aprendizajes-y-mejoras-futuras)
+- [Créditos y agradecimientos](#-créditos-y-agradecimientos)
+- [Licencia](#-licencia)
+- [Autora](#-autora)
 
 ---
 
