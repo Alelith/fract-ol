@@ -101,20 +101,20 @@ La aplicación está estructurada en módulos especializados:
 
 ```
 ┌─────────────────────────────────────┐
-│      Event Loop (Main Thread)        │
-│  - Handle zoom/input              │
-│  - Update fractal parameters      │
+│      Event Loop (Main Thread)       │
+│  - Handle zoom/input                │
+│  - Update fractal parameters        │
 └──────────────┬──────────────────────┘
                │
-               ├─→ [Worker Thread 1] → Compute Fractal Section
-               ├─→ [Worker Thread 2] → Compute Fractal Section
-               ├─→ [Worker Thread 3] → Compute Fractal Section
-               └─→ [Worker Thread 4+] → Compute Fractal Section
+               ├─ [Worker Thread 1] - Compute Fractal Section
+               ├─ [Worker Thread 2] - Compute Fractal Section
+               ├─ [Worker Thread 3] - Compute Fractal Section
+               └─ [Worker Thread 4+] - Compute Fractal Section
                │
                ↓
-        ┌─────────────────┐
-        │ Render to Screen│
-        └─────────────────┘
+        ┌──────────────────┐
+        │ Render to Screen │
+        └──────────────────┘
 ```
 
 ---
