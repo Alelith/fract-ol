@@ -1,19 +1,26 @@
 /**
  * @file complex_operations.c
+ * @brief Implementation of basic complex number arithmetic operations
+ *
  * @author Lilith Estévez Boeta
- * @brief This file contains basic arithmetic operations for complex numbers including multiplication, addition, division, inversion, and modulus calculation.
+ * @date 2025-11-03
  */
 
 #include "fract_ol.h"
 
 /**
- * @brief Multiplies two complex numbers.
+ * @brief Multiplies two complex numbers
+ *
+ * @details Computes the product of two complex numbers using the formula:
+ * (a + bi)(c + di) = (ac - bd) + (ad + bc)i
+ * This is a fundamental operation used in all fractal iteration formulas.
+ *
  * @ingroup complex_ops
- * 
- * @param a First complex number operand.
- * @param b Second complex number operand.
- * 
- * @return t_complex The product of a and b.
+ *
+ * @param[in] a First complex number multiplicand
+ * @param[in] b Second complex number multiplicand
+ *
+ * @return t_complex Product of a and b as a new complex number
  */
 t_complex	multiply_complx(t_complex a, t_complex b)
 {
@@ -25,13 +32,18 @@ t_complex	multiply_complx(t_complex a, t_complex b)
 }
 
 /**
- * @brief Adds two complex numbers.
+ * @brief Adds two complex numbers
+ *
+ * @details Computes the sum of two complex numbers by adding their real and
+ * imaginary components separately: (a + bi) + (c + di) = (a + c) + (b + d)i
+ * Used extensively in fractal iteration formulas to add the constant term.
+ *
  * @ingroup complex_ops
- * 
- * @param a First complex number operand.
- * @param b Second complex number operand.
- * 
- * @return t_complex The sum of a and b.
+ *
+ * @param[in] a First complex number addend
+ * @param[in] b Second complex number addend
+ *
+ * @return t_complex Sum of a and b as a new complex number
  */
 t_complex	sum_complx(t_complex a, t_complex b)
 {
@@ -43,13 +55,21 @@ t_complex	sum_complx(t_complex a, t_complex b)
 }
 
 /**
- * @brief Divides two complex numbers.
+ * @brief Divides one complex number by another
+ *
+ * @details Computes the quotient of two complex numbers using the formula:
+ * (a + bi) / (c + di) = [(ac + bd) + (bc - ad)i] / (c² + d²)
+ * The denominator is normalized by multiplying by the conjugate to eliminate
+ * the imaginary part from the divisor.
+ *
  * @ingroup complex_ops
- * 
- * @param a The dividend (numerator) complex number.
- * @param b The divisor (denominator) complex number.
- * 
- * @return t_complex The quotient of a divided by b.
+ *
+ * @param[in] a Dividend (numerator) complex number
+ * @param[in] b Divisor (denominator) complex number
+ *
+ * @return t_complex Quotient of a divided by b
+ *
+ * @warning No division-by-zero check is performed. Ensure b is non-zero.
  */
 t_complex	div_complx(t_complex a, t_complex b)
 {
@@ -65,12 +85,20 @@ t_complex	div_complx(t_complex a, t_complex b)
 }
 
 /**
- * @brief Computes the multiplicative inverse (reciprocal) of a complex number.
+ * @brief Computes the multiplicative inverse of a complex number
+ *
+ * @details Calculates 1/(a + bi) using the formula:
+ * 1/(a + bi) = (a - bi) / (a² + b²) = a/(a² + b²) - bi/(a² + b²)
+ * The result is the complex conjugate divided by the squared modulus.
+ * Used in fractal variants that require reciprocal operations.
+ *
  * @ingroup complex_ops
- * 
- * @param a The complex number to invert.
- * 
- * @return t_complex The inverse of a (1/a).
+ *
+ * @param[in] a Complex number to be inverted
+ *
+ * @return t_complex Multiplicative inverse of a
+ *
+ * @warning No check for zero input. Ensure a is non-zero to avoid division by zero.
  */
 t_complex	inv_complx(t_complex a)
 {
@@ -84,12 +112,18 @@ t_complex	inv_complx(t_complex a)
 }
 
 /**
- * @brief Calculates the modulus (absolute value) of a complex number.
+ * @brief Calculates the modulus (absolute value) of a complex number
+ *
+ * @details Computes the Euclidean distance from the origin to the complex
+ * number in the complex plane using the formula: |a + bi| = √(a² + b²)
+ * This is the critical function for divergence detection in fractal iteration.
+ * When the modulus exceeds a threshold, the point is considered to diverge.
+ *
  * @ingroup complex_ops
- * 
- * @param num The complex number.
- * 
- * @return double The modulus of num.
+ *
+ * @param[in] num Complex number whose modulus is to be calculated
+ *
+ * @return double Non-negative modulus of the complex number
  */
 double	complx_module(t_complex num)
 {

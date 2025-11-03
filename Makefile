@@ -15,8 +15,7 @@ CC = cc -Wall -Wextra -Werror
 CFLAGS = -lm -lpthread -lSDL2
 
 LIBS_DIR = lib/
-PRINTF_DIR = $(LIBS_DIR)survival_lib/
-PRINTF = $(PRINTF_DIR)survivalib.a
+SURVIVALIB_DIR = $(LIBS_DIR)survivalib.a
 
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -43,17 +42,13 @@ OBJSF = .cache_exists
 
 all: $(NAME)
 
-$(NAME): $(PRINTF) $(OBJS)
-	@$(CC) $(OBJS) $(PRINTF) -o $(NAME) $(CFLAGS)
+$(NAME): $(OBJS)
+	@$(CC) $(OBJS) $(SURVIVALIB_DIR) -o $(NAME) $(CFLAGS)
 	@echo "$(GREEN)Fractol compiled!$(DEF_COLOR)"
-
-$(PRINTF):
-	@echo "$(YELLOW)Making printf...$(DEF_COLOR)"
-	@make -sC $(PRINTF_DIR)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJSF)
 	@echo "$(CYAN)Compiling: $<$(DEF_COLOR)"
-	@$(CC) -c $< -o $@ -I $(INCLUDES) $(CFLAGS)
+	@$(CC) -c $< -o $@ -I $(INCLUDES)
 	
 $(OBJSF):
 	@echo "$(MAGENTA)Creating dirs$(DEF_COLOR)"
@@ -69,7 +64,6 @@ docs:
 clean:
 	@echo "$(RED)Removing .o object files...$(DEF_COLOR)"
 	@rm -rf $(OBJ_DIR)
-	@make fclean -sC $(PRINTF_DIR)
 
 fclean: clean
 	@echo "$(RED)Removing fractol...$(DEF_COLOR)"

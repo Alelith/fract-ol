@@ -343,7 +343,7 @@ Diferentes parámetros producen conjuntos visuales completamente distintos:
 
 La documentación completa del código está generada con Doxygen. Puedes consultarla en:
 
-🔗 **[Documentación del Código](DOCUMENTATION_URL)** *(pendiente de publicar)*
+🔗 **[Documentación del Código](https://alelith.github.io/fract-ol-Documentation/)**
 
 Para generar la documentación localmente:
 ```bash
@@ -351,10 +351,12 @@ make docs
 ```
 
 La documentación incluye:
-- Descripción detallada de todas las funciones y estructuras
-- Diagramas de relaciones entre módulos
-- Ejemplos de uso de las APIs internas
-- Guía de arquitectura
+- **Descripción detallada** de todas las funciones y macros
+- **Diagramas de relaciones** entre módulos
+- **Ejemplos de uso** de las APIs internas
+- **Guía de arquitectura** modular
+- **Especificaciones técnicas** de cada función
+- **Advertencias y notas** sobre comportamiento especial
 
 ---
 

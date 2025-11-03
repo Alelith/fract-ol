@@ -1,19 +1,27 @@
 /**
  * @file julia.c
+ * @brief Implementation of the Julia set fractal with fixed parameter
+ *
  * @author Lilith Estévez Boeta
- * @brief This file contains the implementation of the Julia set fractal renderer.
+ * @date 2025-11-03
  */
 
 #include "fract_ol.h"
 
 /**
- * @brief Performs one iteration of the Julia fractal calculation.
- * @details Computes z = z² + c for the Julia set.
- * 
- * @param z The current complex number (iteration value).
- * @param c The constant complex number (Julia parameter).
- * 
- * @return t_complex The result of one iteration.
+ * @brief Performs one iteration of the Julia set formula
+ *
+ * @details Computes the next value using z_{n+1} = z_n² + c where c is a
+ * fixed complex constant provided by the user. Unlike Mandelbrot where c
+ * varies per pixel, Julia sets use a constant c and vary the initial z.
+ * Different c values produce dramatically different Julia set shapes.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in] z Current complex value in the iteration sequence
+ * @param[in] c Fixed complex constant parameter for this Julia set
+ *
+ * @return t_complex Next value in the iteration sequence
  */
 static t_complex	iteration(t_complex z, t_complex c)
 {
@@ -26,15 +34,22 @@ static t_complex	iteration(t_complex z, t_complex c)
 }
 
 /**
- * @brief Determines if a complex number diverges in the Julia set.
- * @details Iterates the Julia function until divergence or max iterations reached.
- * 
- * @param z Complex number to test.
- * @param c Julia set parameter (constant).
- * @param iter Maximum number of iterations to perform.
- * @param limit Divergence threshold (typically 2.0).
- * 
- * @return int Remaining iterations when diverged, or 0 if did not diverge.
+ * @brief Tests for divergence in the Julia set iteration
+ *
+ * @details Repeatedly applies the Julia iteration formula until the modulus
+ * exceeds the divergence limit or maximum iterations are reached. The initial
+ * z varies per pixel while c remains constant, opposite to the Mandelbrot set.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in] z Initial complex value from pixel coordinates
+ * @param[in] c Fixed complex parameter for this Julia set
+ * @param[in] iter Maximum number of iterations to perform
+ * @param[in] limit Divergence threshold (typically 2.0)
+ *
+ * @return int Remaining iterations when divergence detected, or 0 if bounded
+ * @retval 0 Point appears to be in the Julia set (did not diverge)
+ * @retval >0 Point diverged; value used for coloring
  */
 static int	diverge(t_complex z, t_complex c, int iter, double limit)
 {
@@ -48,13 +63,18 @@ static int	diverge(t_complex z, t_complex c, int iter, double limit)
 }
 
 /**
- * @brief Renders a single pixel of the Julia fractal.
- * @details Calculates the divergence behavior and colors the pixel accordingly.
- * @ingroup fractal_rendering
- * 
- * @param img Pointer to the main data structure.
- * @param z Complex number corresponding to the pixel.
- * @param pos Screen position (pixel coordinates).
+ * @brief Renders a single pixel of the Julia set with coloring
+ *
+ * @details Computes divergence for the given initial z value with the fixed
+ * c parameter stored in the application state. All pixels are colored using
+ * the psychedelic color scheme including those in the set, creating a
+ * continuous color gradient across the entire image.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in,out] img Pointer to application state with fixed c parameter
+ * @param[in] z Initial complex value from pixel coordinates
+ * @param[in] pos Screen coordinates where the pixel should be drawn
  */
 void	draw_julia(t_data *img, t_complex z, t_vector2 pos)
 {

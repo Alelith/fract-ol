@@ -1,16 +1,24 @@
 /**
  * @file main.c
+ * @brief Main entry point and initialization logic for the fractal renderer
+ *
  * @author Lilith Estévez Boeta
- * @brief Main entry point of the Fract-ol application with window initialization and argument validation.
+ * @date 2025-11-03
  */
 
 #include "fract_ol.h"
 
 /**
- * @brief Initializes the initial Z or C values based on the fractal type.
- * 
- * @param data Pointer to the main data structure containing fractal parameters.
- * @param argv Command line arguments containing the fractal type specification.
+ * @brief Initializes fractal-specific parameters based on command-line arguments
+ *
+ * @details Sets the initial Z value for Mandelbrot variants or the constant C
+ * parameter for Julia sets based on the fractal type specified by the user.
+ * Each fractal type requires different initial conditions for proper rendering.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[out] data Pointer to application state structure to be initialized
+ * @param[in] argv Command-line arguments array containing fractal type and parameters
  */
 static void	initial_variables(t_data *data, char **argv)
 {
@@ -42,11 +50,16 @@ static void	initial_variables(t_data *data, char **argv)
 }
 
 /**
- * @brief Sets up the initial conditions for the fractal rendering.
- * @details Initializes zoom, color offset, coordinate bounds, and fractal type.
- * 
- * @param data Pointer to the main data structure to be initialized.
- * @param argv Command line arguments containing the fractal type specification.
+ * @brief Sets up initial rendering conditions and fractal type selection
+ *
+ * @details Initializes the complex plane viewing window, zoom factor, color
+ * offset, and determines which fractal type to render based on command-line
+ * arguments. Delegates to initial_variables for fractal-specific setup.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[out] data Pointer to application state structure to be configured
+ * @param[in] argv Command-line arguments specifying fractal type and parameters
  */
 static void	initial_conditions(t_data *data, char **argv)
 {
@@ -70,10 +83,18 @@ static void	initial_conditions(t_data *data, char **argv)
 }
 
 /**
- * @brief Initializes the SDL2 window and rendering components.
- * @details Creates window, renderer, texture, and sets up the main render loop.
- * 
- * @param vars Pointer to the main data structure containing window parameters.
+ * @brief Initializes SDL2 subsystems and creates rendering resources
+ *
+ * @details Creates the SDL2 window, renderer, texture, and pixel buffer.
+ * Initializes the mutex for thread-safe pixel writes. Performs error checking
+ * at each step and exits with an error message if any initialization fails.
+ * After successful setup, triggers the initial fractal rendering.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[out] vars Pointer to application state structure to be initialized
+ *
+ * @note Exits the application with status 1 if any SDL2 initialization fails
  */
 void	init_window(t_data *vars)
 {
@@ -150,10 +171,16 @@ void	init_window(t_data *vars)
 }
 
 /**
- * @brief Main event loop for SDL2.
- * @details Handles events and calls redraw when needed.
- * 
- * @param vars Pointer to the main data structure.
+ * @brief Main event loop processing user input and updating the display
+ *
+ * @details Continuously polls for SDL2 events including window close, keyboard
+ * input, and mouse wheel scrolling. Handles zoom operations by detecting mouse
+ * wheel direction and position. Updates the texture and presents the rendered
+ * frame to the screen each iteration. Runs until the application is terminated.
+ *
+ * @ingroup utils
+ *
+ * @param[in,out] vars Pointer to application state containing event and rendering data
  */
 void	sdl_loop(t_data *vars)
 {
@@ -165,24 +192,32 @@ void	sdl_loop(t_data *vars)
 	{
 		while (SDL_PollEvent(&event))
 		{
+
 			if (event.type == SDL_QUIT)
 				vars->running = 0;
+
 			else if (event.type == SDL_KEYDOWN)
 				key_handler(event.key.keysym.sym, vars);
+
 			else if (event.type == SDL_MOUSEWHEEL)
 			{
 				SDL_GetMouseState(&mouse_x, &mouse_y);
+
 				if (event.wheel.direction == SDL_MOUSEWHEEL_NORMAL)
 				{
+
 					if (event.wheel.y > 0)
 						zoom(SDL_BUTTON_LEFT, mouse_x, mouse_y, vars);
+
 					else if (event.wheel.y < 0)
 						zoom(SDL_BUTTON_RIGHT, mouse_x, mouse_y, vars);
 				}
 				else
 				{
+
 					if (event.wheel.y > 0)
 						zoom(SDL_BUTTON_RIGHT, mouse_x, mouse_y, vars);
+
 					else if (event.wheel.y < 0)
 						zoom(SDL_BUTTON_LEFT, mouse_x, mouse_y, vars);
 				}
@@ -197,13 +232,21 @@ void	sdl_loop(t_data *vars)
 }
 
 /**
- * @brief Main entry point of the fractal renderer application.
- * @details Validates command line arguments and initializes the fractal rendering window.
- * 
- * @param argc The number of command line arguments.
- * @param argv Array of command line arguments (fractal type and optional parameters).
- * 
- * @return int Exit status code.
+ * @brief Application entry point with command-line argument validation
+ *
+ * @details Validates command-line arguments to ensure proper fractal type and
+ * parameters are provided. Displays usage information if arguments are invalid.
+ * Initializes application state, creates the rendering window, and enters the
+ * main event loop. Supports Mandelbrot variants and Julia sets with parameters.
+ *
+ * @param[in] argc Number of command-line arguments
+ * @param[in] argv Array of command-line argument strings
+ *
+ * @return 0 on successful execution (never reached due to SDL event loop)
+ * @retval 0 Exit after displaying usage information for invalid arguments
+ *
+ * @note Mandelbrot variants require 2 arguments: program name and fractal type
+ * @note Julia sets require 4 arguments: program name, "julia", real part, imaginary part
  */
 int	main(int argc, char **argv)
 {

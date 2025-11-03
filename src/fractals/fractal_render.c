@@ -1,17 +1,24 @@
 /**
  * @file fractal_render.c
+ * @brief Core fractal rendering engine with multi-threaded computation
+ *
  * @author Lilith Estévez Boeta
- * @brief This file contains the main fractal rendering engine with multi-threaded rendering and coordinate mapping functions.
+ * @date 2025-11-03
  */
 
 #include "fract_ol.h"
 
 /**
- * @brief Converts screen coordinates to complex plane coordinates for Mandelbrot set.
- * @details Maps pixel coordinates to complex numbers in the Mandelbrot plane.
- * 
- * @param data Pointer to the main data structure containing zoom and bounds information.
- * @param screen_pos The screen position (pixel coordinates).
+ * @brief Maps screen coordinates to complex plane and renders Mandelbrot fractal
+ *
+ * @details Transforms pixel coordinates to complex plane coordinates taking
+ * into account the current zoom level and viewing window. The complex number
+ * becomes the C parameter in the Mandelbrot iteration z = z² + c.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in,out] data Pointer to application state with viewing parameters
+ * @param[in] screen_pos Screen pixel coordinates to be mapped
  */
 static void	calculate_c_off(t_data *data, t_vector2 screen_pos)
 {
@@ -28,11 +35,16 @@ static void	calculate_c_off(t_data *data, t_vector2 screen_pos)
 }
 
 /**
- * @brief Converts screen coordinates to complex plane coordinates for Julia set.
- * @details Maps pixel coordinates to complex numbers for initial Z values in Julia set.
- * 
- * @param data Pointer to the main data structure containing zoom and bounds information.
- * @param screen_pos The screen position (pixel coordinates).
+ * @brief Maps screen coordinates to complex plane and renders Julia set fractal
+ *
+ * @details Transforms pixel coordinates to the initial Z value for Julia set
+ * iteration. The C parameter is fixed and provided by the user at program start.
+ * Iteration formula is z_{n+1} = z_n² + c where c remains constant.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in,out] data Pointer to application state with viewing parameters
+ * @param[in] screen_pos Screen pixel coordinates to be mapped
  */
 static void	calculate_z(t_data *data, t_vector2 screen_pos)
 {
@@ -49,11 +61,16 @@ static void	calculate_z(t_data *data, t_vector2 screen_pos)
 }
 
 /**
- * @brief Converts screen coordinates to complex plane coordinates for Eye/Sinh Mandelbrot.
- * @details Maps pixel coordinates to complex numbers for Eye and Sinh Mandelbrot sets.
- * 
- * @param data Pointer to the main data structure containing zoom and bounds information.
- * @param screen_pos The screen position (pixel coordinates).
+ * @brief Maps coordinates and dispatches to appropriate Mandelbrot variant
+ *
+ * @details Transforms screen coordinates to complex plane and determines which
+ * Mandelbrot variant to render based on the fractal type. Handles Sinh, Eye,
+ * and Dragon variants, each with different iteration formulas.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in,out] data Pointer to application state with viewing parameters
+ * @param[in] screen_pos Screen pixel coordinates to be mapped
  */
 static void	calculate_c(t_data *data, t_vector2 screen_pos)
 {
@@ -70,21 +87,28 @@ static void	calculate_c(t_data *data, t_vector2 screen_pos)
 
 	if (data -> type == SINH_MANDELBROT)
 		draw_sinh_mandelbrot(data, c, screen_pos);
+
 	else if (data -> type == EYE_MANDELBROT)
 		draw_eye_mandelbrot(data, c, screen_pos);
+
 	else if (data -> type == DRAGON_MANDELBROT)
 		draw_dragon_mandelbrot(data, c, screen_pos);
 }
 
 /**
- * @brief Calculates the maximum number of iterations based on zoom factor.
- * @details Dynamically adjusts iteration depth for better visual effects at different zoom levels.
- * @ingroup fractal_rendering
- * 
- * @param data Pointer to the main data structure containing the zoom factor.
- * @param max_iter The base maximum number of iterations.
- * 
- * @return int The adjusted maximum number of iterations.
+ * @brief Calculates adaptive iteration count based on current zoom level
+ *
+ * @details Dynamically adjusts the maximum iteration count using a logarithmic
+ * scale relative to zoom level. Higher zoom levels reveal finer detail and
+ * require more iterations to accurately determine convergence or divergence.
+ * Formula: iterations = max_iter * log₂(zoom_factor + 1)
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in] data Pointer to application state containing current zoom factor
+ * @param[in] max_iter Base maximum iteration count (typically ITER constant)
+ *
+ * @return int Scaled iteration count for current zoom level
  */
 int	calculate_iterations(t_data *data, int max_iter)
 {
@@ -92,13 +116,19 @@ int	calculate_iterations(t_data *data, int max_iter)
 }
 
 /**
- * @brief Renders a portion of the fractal in a separate thread.
- * @details Thread worker function that calculates and renders fractal pixels for assigned rows.
- * @ingroup fractal_rendering
- * 
- * @param arg Pointer to t_thread_data structure containing thread-specific parameters.
- * 
- * @return void* Returns NULL.
+ * @brief Thread worker function that renders a horizontal section of the fractal
+ *
+ * @details Each thread is responsible for computing a range of scanlines.
+ * Iterates through assigned rows and columns, maps each pixel to complex
+ * coordinates, and dispatches to the appropriate fractal rendering function
+ * based on the current fractal type. This function runs in parallel across
+ * NUM_THREADS worker threads.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in] arg Pointer to t_thread_data structure containing thread parameters
+ *
+ * @return void* Always returns NULL (required by pthread interface)
  */
 void	*render_fractal_threaded(void *arg)
 {
@@ -121,6 +151,7 @@ void	*render_fractal_threaded(void *arg)
 
 			if (data->type == MANDELBROT)
 				calculate_c_off(data, screen_pos);
+
 			else if (data->type == JULIA)
 				calculate_z(data, screen_pos);
 			else if (data->type == SINH_MANDELBROT
@@ -133,11 +164,17 @@ void	*render_fractal_threaded(void *arg)
 }
 
 /**
- * @brief Renders the entire fractal using multi-threading.
- * @details Distributes fractal rendering across multiple threads.
- * @ingroup fractal_rendering
- * 
- * @param data Pointer to the main data structure containing fractal parameters and window info.
+ * @brief Orchestrates multi-threaded fractal rendering across all worker threads
+ *
+ * @details Divides the screen into horizontal strips and spawns NUM_THREADS
+ * worker threads to compute each section in parallel. Distributes remaining
+ * rows evenly if screen height is not perfectly divisible. Blocks until all
+ * threads complete their work before returning. Called whenever the view changes
+ * due to zoom or parameter adjustments.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in,out] data Pointer to application state with all rendering parameters
  */
 void	redraw_fractal(t_data *data)
 {

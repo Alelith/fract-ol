@@ -1,19 +1,27 @@
 /**
  * @file dragon_mandelbrot.c
+ * @brief Implementation of the Dragon Mandelbrot fractal variant
+ *
  * @author Lilith Estévez Boeta
- * @brief This file contains the implementation of the Dragon Mandelbrot fractal variant renderer.
+ * @date 2025-11-03
  */
 
 #include "fract_ol.h"
 
 /**
- * @brief Performs one iteration of the Eye Mandelbrot fractal calculation.
- * @details Computes z = (z³) * (1/c) for the Eye Mandelbrot set.
- * 
- * @param z The current complex number (iteration value).
- * @param c The constant complex number (pixel value).
- * 
- * @return t_complex The result of one iteration.
+ * @brief Performs one iteration of the Dragon Mandelbrot formula
+ *
+ * @details Computes z_{n+1} = sinh(z_n) + 1/c² combining hyperbolic sine with
+ * inverse squared operations. This complex formula produces intricate dragon-like
+ * structures with sharp features and deep self-similarity. The combination of
+ * transcendental and rational operations creates unique convergence patterns.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in] z Current complex value in the iteration sequence
+ * @param[in] c Complex constant from pixel coordinates
+ *
+ * @return t_complex Next value in the iteration sequence
  */
 static t_complex	iteration(t_complex z, t_complex c)
 {
@@ -24,15 +32,23 @@ static t_complex	iteration(t_complex z, t_complex c)
 }
 
 /**
- * @brief Determines if a complex number diverges in the Dragon Mandelbrot set.
- * @details Iterates the Dragon Mandelbrot function until divergence or max iterations reached.
- * 
- * @param z Complex number to test.
- * @param c Julia set parameter (constant).
- * @param iter Maximum number of iterations to perform.
- * @param limit Divergence threshold (typically 2.0).
- * 
- * @return int Remaining iterations when diverged, or 0 if did not diverge.
+ * @brief Tests for divergence using the Dragon Mandelbrot formula
+ *
+ * @details Iterates the complex dragon formula until divergence or maximum
+ * iterations. This variant typically requires significantly higher iteration
+ * counts and larger divergence thresholds due to the slow-growing nature of
+ * the combined sinh and inverse operations.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in] z Initial complex value from application state
+ * @param[in] c Complex constant from pixel coordinates
+ * @param[in] iter Maximum number of iterations to perform
+ * @param[in] limit Divergence threshold (typically much higher than standard)
+ *
+ * @return int Remaining iterations when divergence detected, or 0 if bounded
+ * @retval 0 Point appears to be in the Dragon Mandelbrot set
+ * @retval >0 Point diverged; value determines color detail
  */
 static int	diverge(t_complex z, t_complex c, int iter, double limit)
 {
@@ -46,13 +62,21 @@ static int	diverge(t_complex z, t_complex c, int iter, double limit)
 }
 
 /**
- * @brief Renders a single pixel of the Dragon Mandelbrot fractal.
- * @details Calculates the divergence behavior and colors the pixel accordingly.
- * @ingroup fractal_rendering
- * 
- * @param img Pointer to the main data structure.
- * @param c Complex number corresponding to the pixel.
- * @param pos Screen position (pixel coordinates).
+ * @brief Renders a single pixel of the Dragon Mandelbrot fractal
+ *
+ * @details Computes divergence using the dragon formula with significantly
+ * increased iteration count (20x multiplier) and high divergence limit (60.0)
+ * to capture the fractal's fine details. Colors diverging points with
+ * psychedelic mapping to reveal the intricate dragon-scale patterns.
+ *
+ * @ingroup fractal_render
+ *
+ * @param[in,out] img Pointer to application state with rendering parameters
+ * @param[in] c Complex coordinate from pixel position
+ * @param[in] pos Screen coordinates for pixel placement
+ *
+ * @note Uses 20x iteration multiplier due to slow convergence
+ * @note Divergence limit set to 60.0 instead of standard 2.0
  */
 void	draw_dragon_mandelbrot(t_data *img, t_complex c, t_vector2 pos)
 {
