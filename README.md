@@ -1,103 +1,103 @@
 # 🚀 Fract-ol - Interactive Fractal Renderer
 
-![Estado](https://img.shields.io/badge/estado-Completado-blue)
-![Lenguaje](https://img.shields.io/badge/lenguaje-C-orange)
-![Librería%20Gráfica](https://img.shields.io/badge/gráficos-SDL2-yellow)
-![Licencia](https://img.shields.io/badge/licencia-GPL3-green)
-![Última actualización](https://img.shields.io/github/last-commit/Alelith/fract-ol)
+![Status](https://img.shields.io/badge/status-Completed-blue)
+![Language](https://img.shields.io/badge/language-C-orange)
+![Graphics%20Library](https://img.shields.io/badge/graphics-SDL2-yellow)
+![License](https://img.shields.io/badge/license-GPL3-green)
+![Last Update](https://img.shields.io/github/last-commit/Alelith/fract-ol)
 
 ---
 
-## 🧠 Descripción
+## 🧠 Description
 
-**Fract-ol** es un renderizador interactivo de fractales de alto rendimiento escrito en C. La aplicación permite visualizar y explorar fractales matemáticos hermosos en tiempo real, con capacidades de zoom suave, esquemas de color dinámicos y renderizado multi-hilo para un rendimiento óptimo.
+**Fract-ol** is a high-performance interactive fractal renderer written in C. The application allows you to visualize and explore beautiful mathematical fractals in real-time, with smooth zoom capabilities, dynamic color schemes, and multi-threaded rendering for optimal performance.
 
-El proyecto implementa cuatro tipos de fractales diferentes y proporciona una interfaz interactiva para explorar estos objetos matemáticos fascinantes. Es ideal para aprender sobre matemáticas complejas, programación en C y programación de gráficos.
-
----
-
-## 🧩 Tabla de contenidos
-
-- [Descripción](#-descripción)
-- [Características](#-características)
-- [Tecnologías utilizadas](#%EF%B8%8F-tecnologías-utilizadas)
-- [Arquitectura](#%EF%B8%8F-arquitectura)
-- [Estructura del proyecto](#-estructura-del-proyecto)
-- [Instalación](#-instalación)
-- [Ejecución](#%EF%B8%8F-ejecución)
-- [Configuración](#%EF%B8%8F-configuración)
-- [Uso o ejemplos](#-uso-o-ejemplos)
-- [Capturas o demostración](#-capturas-o-demostración)
-- [Documentación](#-documentación)
-- [Errores conocidos / ToDo](#-errores-conocidos--todo)
-- [Aprendizajes y mejoras futuras](#-aprendizajes-y-mejoras-futuras)
-- [Créditos y agradecimientos](#-créditos-y-agradecimientos)
-- [Licencia](#-licencia)
-- [Autora](#%E2%80%8D-autora)
+The project implements four different types of fractals and provides an interactive interface to explore these fascinating mathematical objects. It's ideal for learning about complex mathematics, C programming, and graphics programming.
 
 ---
 
-## 🌟 Características
+## 🧩 Table of Contents
 
-- ✅ **Renderizado en tiempo real**: Computación de fractales multi-hilo para interacción responsiva
-- ✅ **Zoom interactivo**: Zoom centrado en la posición del cursor con rueda del ratón
-- ✅ **Esquemas de color dinámicos**: Múltiples paletas de color incluyendo mapeo HSV y efectos psicodélicos
-- ✅ **Alto rendimiento**: Renderizado paralelo con 8 workers simultáneos
-- ✅ **Matemáticas complejas**: Aritmética de números complejos incluyendo operaciones trigonométricas
-- ✅ **Múltiples fractales**: Mandelbrot clásico, Julia, Eye Mandelbrot, Sinh Mandelbrot y Dragon Mandelbrot
-- 🔄 **Futuras mejoras**: Optimizaciones de rendimiento para zooms extremos, más variaciones de fractales
+- [Description](#-description)
+- [Features](#-features)
+- [Technologies Used](#%EF%B8%8F-technologies-used)
+- [Architecture](#%EF%B8%8F-architecture)
+- [Project Structure](#-project-structure)
+- [Installation](#-installation)
+- [Execution](#%EF%B8%8F-execution)
+- [Configuration](#%EF%B8%8F-configuration)
+- [Usage and Examples](#-usage-and-examples)
+- [Screenshots or Demo](#-screenshots-or-demo)
+- [Documentation](#-documentation)
+- [Known Issues / ToDo](#-known-issues--todo)
+- [Learnings and Future Improvements](#-learnings-and-future-improvements)
+- [Credits and Acknowledgments](#-credits-and-acknowledgments)
+- [License](#-license)
+- [Author](#%E2%80%8D-author)
 
 ---
 
-## ⚙️ Tecnologías utilizadas
+## 🌟 Features
 
-| Categoría | Tecnología |
+- ✅ **Real-time rendering**: Multi-threaded fractal computation for responsive interaction
+- ✅ **Interactive zoom**: Cursor-centered zoom with mouse wheel
+- ✅ **Dynamic color schemes**: Multiple color palettes including HSV mapping and psychedelic effects
+- ✅ **High performance**: Parallel rendering with 8 simultaneous workers
+- ✅ **Complex mathematics**: Complex number arithmetic including trigonometric operations
+- ✅ **Multiple fractals**: Classic Mandelbrot, Julia, Eye Mandelbrot, Sinh Mandelbrot, and Dragon Mandelbrot
+- 🔄 **Future improvements**: Performance optimizations for extreme zooms, more fractal variations
+
+---
+
+## ⚙️ Technologies Used
+
+| Category | Technology |
 |-----------|-----------|
-| **Lenguaje** | C (C99 estándar) |
-| **Compilador** | GCC / Clang |
-| **Gráficos** | SDL2 (Simple DirectMedia Layer 2) |
-| **Parallelismo** | POSIX Threads (pthread) |
-| **Matemáticas** | Aritmética de números complejos, cálculos trigonométricos |
-| **Herramientas** | Make, Doxygen (documentación) |
-| **Sistema Operativo** | Linux (verificado) |
+| **Language** | C (C99 standard) |
+| **Compiler** | GCC / Clang |
+| **Graphics** | SDL2 (Simple DirectMedia Layer 2) |
+| **Parallelism** | POSIX Threads (pthread) |
+| **Mathematics** | Complex number arithmetic, trigonometric calculations |
+| **Tools** | Make, Doxygen (documentation) |
+| **Operating System** | Linux (verified) |
 
 ---
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
-La aplicación está estructurada en módulos especializados:
+The application is structured into specialized modules:
 
-### Módulos principales:
+### Main Modules:
 
 **Complex Number Operations** (`src/complex/`):
-- Operaciones aritméticas: multiplicación, suma, división, inversión
-- Funciones trigonométricas complejas (seno hiperbólico)
-- Cálculo de módulo para detección de divergencia
+- Arithmetic operations: multiplication, addition, division, inversion
+- Complex trigonometric functions (hyperbolic sine)
+- Modulus calculation for divergence detection
 
 **Fractal Rendering** (`src/fractals/`):
-- **Mandelbrot Set**: z = z² + c con c como coordenada del píxel
-- **Julia Set**: z_{n+1} = z_n² + c con parámetro c fijo personalizables
-- **Eye Mandelbrot**: Variación con iteración z³
-- **Sinh Mandelbrot**: Utilizando operaciones de seno hiperbólico
-- **Dragon Mandelbrot**: Variación adicional del conjunto de Mandelbrot
+- **Mandelbrot Set**: z = z² + c where c is the pixel coordinate
+- **Julia Set**: z_{n+1} = z_n² + c with customizable fixed parameter c
+- **Eye Mandelbrot**: Variation with z³ iteration
+- **Sinh Mandelbrot**: Using hyperbolic sine operations
+- **Dragon Mandelbrot**: Additional variation of the Mandelbrot set
 
 **Utilities** (`src/utils/`):
-- Gestión de imágenes y buffer de píxeles
-- Esquemas de color y mapeo HSV
-- Manejo de eventos y entrada del usuario
+- Image management and pixel buffer
+- Color schemes and HSV mapping
+- Event handling and user input
 
 **Survival Library** (`lib/survival_lib/`):
-- Funciones personalizadas de utilidad: manejo de strings, memoria, conversiones
-- Printf personalizado con soporte para formato
-- Abstracciones de bajo nivel reutilizables
+- Custom utility functions: string handling, memory, conversions
+- Custom printf with format support
+- Reusable low-level abstractions
 
-### Flujo de ejecución:
-1. Inicialización de SDL2 y creación de ventana
-2. Análisis de argumentos para seleccionar tipo de fractal
-3. Spawn de threads workers para cálculo paralelo
-4. Loop principal de eventos: captura entrada, actualiza zoom/parámetros
-5. Renderizado: cada worker calcula sección del fractal
-6. Presentación en pantalla y sincronización
+### Execution Flow:
+1. SDL2 initialization and window creation
+2. Argument parsing to select fractal type
+3. Spawn worker threads for parallel computation
+4. Main event loop: capture input, update zoom/parameters
+5. Rendering: each worker computes a fractal section
+6. Screen presentation and synchronization
 
 ```
 ┌─────────────────────────────────────┐
@@ -119,105 +119,97 @@ La aplicación está estructurada en módulos especializados:
 
 ---
 
-## 📂 Estructura del proyecto
+## 📂 Project Structure
 
 ```
 fract-ol/
-├── include/                          # Headers principales
-│   ├── fract_ol.h                   # Definiciones y estructuras principales
-│   └── survival_lib.h               # Headers de la librería personalizada
-├── src/                             # Código fuente
-│   ├── main.c                       # Punto de entrada y setup inicial
-│   ├── complex/                     # Operaciones con números complejos
-│   │   ├── complex_operations.c     # Suma, resta, multiplicación, división
-│   │   └── complex_trigonometric.c  # Seno hiperbólico y funciones trigonométricas
-│   ├── fractals/                    # Algoritmos de renderizado de fractales
-│   │   ├── fractal_render.c         # Motor de renderizado principal
-│   │   ├── mandelbrot.c             # Implementación del conjunto de Mandelbrot
-│   │   ├── julia.c                  # Implementación del conjunto de Julia
-│   │   ├── eye_mandelbrot.c         # Variación Eye (z³)
-│   │   ├── sinh_mandelbrot.c        # Variación Sinh
-│   │   └── dragon_mandelbrot.c      # Variación Dragon
-│   └── utils/                       # Utilidades
-│       ├── color.c                  # Paletas de color y mapeo HSV
-│       ├── handlers.c               # Manejadores de eventos
-│       ├── img_manag.c              # Gestión de buffer de píxeles
-│       └── string.c                 # Funciones de string auxiliares
+├── include/                         # Main headers
+│   ├── fract_ol.h                   # Main definitions and structures
+│   └── survival_lib.h               # Custom library headers
+├── src/                             # Source code
+│   ├── main.c                       # Entry point and initial setup
+│   ├── complex/                     # Complex number operations
+│   │   ├── complex_operations.c     # Addition, subtraction, multiplication, division
+│   │   └── complex_trigonometric.c  # Hyperbolic sine and trigonometric functions
+│   ├── fractals/                    # Fractal rendering algorithms
+│   │   ├── fractal_render.c         # Main rendering engine
+│   │   ├── mandelbrot.c             # Mandelbrot set implementation
+│   │   ├── julia.c                  # Julia set implementation
+│   │   ├── eye_mandelbrot.c         # Eye variation (z³)
+│   │   ├── sinh_mandelbrot.c        # Sinh variation
+│   │   └── dragon_mandelbrot.c      # Dragon variation
+│   └── utils/                       # Utilities
+│       ├── color.c                  # Color palettes and HSV mapping
+│       ├── handlers.c               # Event handlers
+│       ├── img_manag.c              # Pixel buffer management
+│       └── string.c                 # Auxiliary string functions
 ├── lib/
-│   └── survival_lib/                # Librería personalizada de utilidades
-│       ├── include/
-│       │   └── survival_lib.h
-│       └── src/
-│           ├── check/               # Funciones de validación
-│           ├── conversion/          # Conversión de tipos
-│           ├── memory/              # Gestión de memoria
-│           ├── printf/              # Printf personalizado
-│           └── string/              # Funciones de string
-├── Makefile                         # Compilación del proyecto
-├── Doxyfile                         # Configuración de documentación
-├── LICENSE                          # Licencia GPL3
-└── README.md                        # Este archivo
+│   └── survivalib.a                 # Custom utility library
+├── Makefile                         # Project compilation
+├── Doxyfile                         # Documentation configuration
+├── LICENSE                          # GPL3 License
+└── README.md                        # This file
 ```
 
-## 📦 Instalación
+## 📦 Installation
 
-### 🔧 Requisitos previos
+### 🔧 Prerequisites
 
-- **Compilador**: GCC o Clang con soporte para C99
+- **Compiler**: GCC or Clang with C99 support
 - **Build system**: GNU Make
-- **Gráficos**: SDL2 (Simple DirectMedia Layer 2)
-- **Sistema operativo**: Linux (o compatible con POSIX Threads)
+- **Graphics**: SDL2 (Simple DirectMedia Layer 2)
+- **Operating system**: Linux (or POSIX Threads compatible)
 
-**Opcional:**
-- **Doxygen**: Para generar documentación localmente
+**Optional:**
+- **Doxygen**: To generate documentation locally
 
-#### En Debian/Ubuntu:
+#### On Debian/Ubuntu:
 ```bash
 sudo apt-get update
 sudo apt-get install build-essential libsdl2-dev
-# Opcional - para documentación
+# Optional - for documentation
 sudo apt-get install doxygen
 ```
 
-#### En Fedora/RHEL:
+#### On Fedora/RHEL:
 ```bash
 sudo dnf install gcc make SDL2-devel
-# Opcional - para documentación
+# Optional - for documentation
 sudo dnf install doxygen
 ```
 
-#### En macOS (con Homebrew):
+#### On macOS (with Homebrew):
 ```bash
 brew install sdl2
-# Opcional - para documentación
+# Optional - for documentation
 brew install doxygen
 ```
 
-### 💾 Pasos de instalación
+### 💾 Installation Steps
 
-1. **Clonar el repositorio**:
+1. **Clone the repository**:
 ```bash
 git clone https://github.com/Alelith/fract-ol.git
 cd fract-ol
 ```
 
-2. **Compilar el proyecto**:
+2. **Compile the project**:
 ```bash
 make
 ```
 
-3. **Compilar con documentación (opcional)**:
+3. **Compile with documentation (optional)**:
 ```bash
 make docs
 ```
 
-El ejecutable `fractol` se generará en el directorio raíz.
+The `fractol` executable will be generated in the root directory.
 
 ---
 
-## ▶️ Ejecución
+## ▶️ Execution
 
-La aplicación se ejecuta desde la línea de comandos especificando el tipo de fractal a renderizar:
+The application is run from the command line by specifying the type of fractal to render:
 
 ```bash
 ./fractol mandelbrot
@@ -227,225 +219,225 @@ La aplicación se ejecuta desde la línea de comandos especificando el tipo de f
 ./fractol dragon
 ```
 
-### Ejemplos:
+### Examples:
 
 ```bash
-# Renderizar el conjunto de Mandelbrot clásico
+# Render the classic Mandelbrot set
 ./fractol mandelbrot
 
-# Renderizar un conjunto de Julia con parámetros C = 0.285 + 0.01i
+# Render a Julia set with parameters C = 0.285 + 0.01i
 ./fractol julia 0.285 0.01
 
-# Renderizar variaciones
+# Render variations
 ./fractol eye
 ./fractol sinh
 ./fractol dragon
 ```
 
-### Controles:
+### Controls:
 
-| Control | Acción |
+| Control | Action |
 |---------|--------|
-| **Rueda arriba** | Zoom in (centrado en el cursor) |
-| **Rueda abajo** | Zoom out |
-| **ESC** | Cerrar la aplicación |
-| **Movimiento ratón** | Actualiza información en tiempo real durante zoom |
+| **Mouse wheel up** | Zoom in (cursor-centered) |
+| **Mouse wheel down** | Zoom out |
+| **ESC** | Close the application |
+| **Mouse movement** | Updates information in real-time during zoom |
 
-## ⚙️ Configuración
+## ⚙️ Configuration
 
-### Parámetros compilación
+### Compilation Parameters
 
-El Makefile incluye varios objetivos útiles:
+The Makefile includes several useful targets:
 
 ```bash
-make              # Compila el proyecto
-make clean        # Elimina archivos objeto
-make fclean       # Limpieza completa (archivos objeto y ejecutable)
-make re           # Limpieza completa y recompilación
-make docs         # Genera documentación con Doxygen
+make              # Compile the project
+make clean        # Remove object files
+make fclean       # Complete cleanup (object files and executable)
+make re           # Complete cleanup and recompilation
+make docs         # Generate documentation with Doxygen
 ```
 
-### Variables del programa
+### Program Variables
 
-Los siguientes parámetros pueden configurarse en tiempo de compilación (editando `include/fract_ol.h`):
+The following parameters can be configured at compile time (by editing `include/fract_ol.h`):
 
-- **WIDTH / HEIGHT**: Dimensiones de la ventana (por defecto: 1920x1440)
-- **MAX_ITERATIONS**: Número máximo de iteraciones para calcular divergencia (por defecto: 256)
-- **NUM_THREADS**: Número de workers (por defecto: 8)
+- **WIDTH / HEIGHT**: Window dimensions (default: 1920x1440)
+- **MAX_ITERATIONS**: Maximum number of iterations to calculate divergence (default: 256)
+- **NUM_THREADS**: Number of workers (default: 8)
 
 ---
 
-## 🧪 Uso o ejemplos
+## 🧪 Usage and Examples
 
-### Explorando el conjunto de Mandelbrot
+### Exploring the Mandelbrot Set
 
-1. Ejecutar: `./fractol mandelbrot`
-2. Usar la rueda del ratón para hacer zoom
-3. Acercar en regiones interesantes para ver la autosimilitud fractal
+1. Run: `./fractol mandelbrot`
+2. Use the mouse wheel to zoom
+3. Zoom in on interesting regions to see fractal self-similarity
 
-### Jugando con Julia sets
+### Playing with Julia Sets
 
-Diferentes parámetros producen conjuntos visuales completamente distintos:
+Different parameters produce completely different visual sets:
 
 ```bash
-# Espiral de fuego
+# Fire spiral
 ./fractol julia -0.7 0.27015
 
-# Conjunto dentado
+# Jagged set
 ./fractol julia -0.4 0.6
 
-# Galaxia
+# Galaxy
 ./fractol julia -0.162 1.04
 ```
 
-### Comparando variaciones
+### Comparing Variations
 
 ```bash
-# Mandelbrot clásico
+# Classic Mandelbrot
 ./fractol mandelbrot
 
-# Mandelbrot con Z³ (Eye)
+# Mandelbrot with Z³ (Eye)
 ./fractol eye
 
-# Mandelbrot con seno hiperbólico
+# Mandelbrot with hyperbolic sine
 ./fractol sinh
 
 # Dragon Mandelbrot
 ./fractol dragon
 ```
 
-### Workflow típico
+### Typical Workflow
 
-1. Seleccionar tipo de fractal
-2. Identificar región interesante
-3. Hacer zoom gradualmente para explorar detalles
-4. Observar cómo diferentes esquemas de color revelan estructuras distintas
-
----
-
-## 📸 Capturas o demostración
-
-> **📝 Nota**: Se recomienda ejecutar el programa y explorar interactivamente los diferentes fractales. Cada screenshot tiene características únicas según el nivel de zoom y los parámetros utilizados.
-
-### Fractales implementados:
-
-- **Mandelbrot Set**: El clásico conjunto de Mandelbrot con estructura autosimilar infinita
-- **Julia Set**: Conjuntos complejos generados por parámetros personalizables
-- **Eye Mandelbrot**: Variación visual distintiva con iteración z³
-- **Sinh Mandelbrot**: Visualización única usando funciones hiperbólicas
-- **Dragon Mandelbrot**: Otra fascinante variación del conjunto clásico
-
-*Captura de pantalla pendiente de actualizar - ejecutar `./fractol mandelbrot` para ver en vivo*
+1. Select fractal type
+2. Identify interesting region
+3. Zoom gradually to explore details
+4. Observe how different color schemes reveal distinct structures
 
 ---
 
-## 📖 Documentación
+## 📸 Screenshots or Demo
 
-La documentación completa del código está generada con Doxygen. Puedes consultarla en:
+> **📝 Note**: It's recommended to run the program and interactively explore the different fractals. Each screenshot has unique characteristics depending on the zoom level and parameters used.
 
-🔗 **[Documentación del Código](https://alelith.github.io/fract-ol-Documentation/)**
+### Implemented Fractals:
 
-Para generar la documentación localmente:
+- **Mandelbrot Set**: The classic Mandelbrot set with infinite self-similar structure
+- **Julia Set**: Complex sets generated by customizable parameters
+- **Eye Mandelbrot**: Distinctive visual variation with z³ iteration
+- **Sinh Mandelbrot**: Unique visualization using hyperbolic functions
+- **Dragon Mandelbrot**: Another fascinating variation of the classic set
+
+*Screenshot pending update - run `./fractol mandelbrot` to see it live*
+
+---
+
+## 📖 Documentation
+
+The complete code documentation is generated with Doxygen. You can access it at:
+
+🔗 **[Code Documentation](https://alelith.github.io/fract-ol-Documentation/)**
+
+To generate the documentation locally:
 ```bash
 make docs
 ```
 
-La documentación incluye:
-- **Descripción detallada** de todas las funciones y macros
-- **Diagramas de relaciones** entre módulos
-- **Ejemplos de uso** de las APIs internas
-- **Guía de arquitectura** modular
-- **Especificaciones técnicas** de cada función
-- **Advertencias y notas** sobre comportamiento especial
+The documentation includes:
+- **Detailed description** of all functions and macros
+- **Relationship diagrams** between modules
+- **Usage examples** of internal APIs
+- **Modular architecture guide**
+- **Technical specifications** for each function
+- **Warnings and notes** about special behavior
 
 ---
 
-## 🐞 Errores conocidos / ToDo
+## 🐞 Known Issues / ToDo
 
-### Problemas conocidos:
+### Known Issues:
 
-| Severidad | Descripción | Estado |
+| Severity | Description | Status |
 |-----------|-------------|--------|
-| 🟡 Media | Degradación de rendimiento con zooms extremos (>100x) | Abierto - Requiere optimización |
+| 🟡 Medium | Performance degradation with extreme zooms (>100x) | Open - Requires optimization |
 
-### Mejoras futuras planeadas:
+### Planned Future Improvements:
 
-- [ ] Optimización de rendimiento para zooms ultra profundos
-- [ ] Más variaciones de fractales (Tricorn, Burning Ship, etc.)
-- [ ] Modo grabación de animaciones de zoom
-- [ ] Paleta de colores personalizable en tiempo de ejecución
-- [ ] Exportación de imágenes en alta resolución
-- [ ] Soporte multi-plataforma completo (macOS, Windows)
-
----
-
-## 🧭 Aprendizajes y mejoras futuras
-
-### 📚 Aprendizajes principales
-
-1. **Programación de Gráficos en C**: Dominio de SDL2 para renderizado en tiempo real
-   - Gestión de eventos, buffer de píxeles y sincronización de pantalla
-   - Optimización de performance en computación gráfica
-
-2. **Matemáticas de Fractales**: Comprensión profunda de conjuntos de Mandelbrot y Julia
-   - Números complejos y aritmética compleja
-   - Algoritmos de iteración y detección de divergencia
-   - Visualización de estructuras matemáticas infinitas
-
-3. **Programación Concurrente**: Implementación de renderizado paralelo
-   - POSIX Threads para computación multi-hilo
-   - Sincronización entre threads sin race conditions
-   - División eficiente de trabajo computacional
-
-4. **Gestión de Memoria en C**: Prácticas robustas de asignación y liberación
-   - Perfilado de memoria bajo carga
-   - Optimización de estructuras de datos
-
-### 🚀 Mejoras futuras consideradas
-
-- **Performance**: Investigar SIMD (SSE/AVX) para vectorización de cálculos complejos
-- **Más Fractales**: Tricorn, Burning Ship, Newton fractals
-- **Interactividad**: Interfaz de parámetros en tiempo real
-- **Portabilidad**: Verificar compatibilidad con macOS y Windows
-- **Visualización**: Modos 3D, mapeo de profundidad, raytracing fractal
+- [ ] Performance optimization for ultra-deep zooms
+- [ ] More fractal variations (Tricorn, Burning Ship, etc.)
+- [ ] Zoom animation recording mode
+- [ ] Customizable color palette at runtime
+- [ ] High-resolution image export
+- [ ] Full multi-platform support (macOS, Windows)
 
 ---
 
-## 🤝 Créditos y agradecimientos
+## 🧭 Learnings and Future Improvements
 
-- **Matemáticas de Fractales**: Basado en teoría de Benoit Mandelbrot y Gaston Julia
-- **SDL2**: Simple DirectMedia Layer - Librería gráfica multiplataforma
-- **Referencias**: 
+### 📚 Main Learnings
+
+1. **Graphics Programming in C**: Mastery of SDL2 for real-time rendering
+   - Event management, pixel buffer, and screen synchronization
+   - Performance optimization in graphics computing
+
+2. **Fractal Mathematics**: Deep understanding of Mandelbrot and Julia sets
+   - Complex numbers and complex arithmetic
+   - Iteration algorithms and divergence detection
+   - Visualization of infinite mathematical structures
+
+3. **Concurrent Programming**: Implementation of parallel rendering
+   - POSIX Threads for multi-threaded computing
+   - Thread synchronization without race conditions
+   - Efficient division of computational work
+
+4. **Memory Management in C**: Robust allocation and deallocation practices
+   - Memory profiling under load
+   - Data structure optimization
+
+### 🚀 Considered Future Improvements
+
+- **Performance**: Investigate SIMD (SSE/AVX) for complex calculation vectorization
+- **More Fractals**: Tricorn, Burning Ship, Newton fractals
+- **Interactivity**: Real-time parameter interface
+- **Portability**: Verify compatibility with macOS and Windows
+- **Visualization**: 3D modes, depth mapping, fractal raytracing
+
+---
+
+## 🤝 Credits and Acknowledgments
+
+- **Fractal Mathematics**: Based on theory by Benoit Mandelbrot and Gaston Julia
+- **SDL2**: Simple DirectMedia Layer - Cross-platform graphics library
+- **References**: 
   - [Wikipedia - Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set)
   - [Wikipedia - Julia set](https://en.wikipedia.org/wiki/Julia_set)
   - [SDL2 Documentation](https://wiki.libsdl.org/)
 
 ---
 
-## 📜 Licencia
+## 📜 License
 
-Este proyecto está licenciado bajo la **Licencia GNU General Public License v3 (GPL3)** - ver el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the **GNU General Public License v3 (GPL3)** - see the [LICENSE](LICENSE) file for more details.
 
-La licencia GPL3 requiere:
-- 📋 Incluir el aviso de licencia y copyright
-- 📝 Documentar cambios realizados
-- 📦 Disponibilidad de código fuente
-- 🔄 Cambios bajo la misma licencia
+The GPL3 license requires:
+- 📋 Include license and copyright notice
+- 📝 Document changes made
+- 📦 Source code availability
+- 🔄 Changes under the same license
 
-Cualquier trabajo derivado debe ser distribuido bajo la misma licencia GPL3.
+Any derivative work must be distributed under the same GPL3 license.
 
 ---
 
-## 👩‍💻 Autora
+## 👩‍💻 Author
 
 **Lilith Estévez Boeta**
 
-Programadora Backend & Multiplataforma  
-📍 Málaga, España  
+Backend & Multiplatform Developer  
+📍 Málaga, Spain  
 🔗 [GitHub](https://github.com/Alelith) · [LinkedIn](https://www.linkedin.com/in/alelith/)
 
 ---
 
 <p align="center">
-  <b>⭐ Si te gusta este proyecto, no olvides dejar una estrella en GitHub ⭐</b>
+  <b>⭐ If you like this project, don't forget to leave a star on GitHub ⭐</b>
 </p>
