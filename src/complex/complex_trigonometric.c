@@ -9,7 +9,8 @@
 /**
  * @brief Computes the hyperbolic sine of a complex number.
  * @details Calculates sinh(z) for complex numbers using the formula:
- *          sinh(z) = sinh(Re(z))*cos(Im(z)) + i*cosh(Re(z))*sin(Im(z))
+ * sinh(z) = sinh(Re(z))*cos(Im(z)) + i*cosh(Re(z))*sin(Im(z))
+ * @ingroup complex_ops
  * 
  * @param num The complex number.
  * 

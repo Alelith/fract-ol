@@ -8,6 +8,7 @@
 
 /**
  * @brief Multiplies two complex numbers.
+ * @ingroup complex_ops
  * 
  * @param a First complex number operand.
  * @param b Second complex number operand.
@@ -25,6 +26,7 @@ t_complex	multiply_complx(t_complex a, t_complex b)
 
 /**
  * @brief Adds two complex numbers.
+ * @ingroup complex_ops
  * 
  * @param a First complex number operand.
  * @param b Second complex number operand.
@@ -42,6 +44,7 @@ t_complex	sum_complx(t_complex a, t_complex b)
 
 /**
  * @brief Divides two complex numbers.
+ * @ingroup complex_ops
  * 
  * @param a The dividend (numerator) complex number.
  * @param b The divisor (denominator) complex number.
@@ -63,6 +66,7 @@ t_complex	div_complx(t_complex a, t_complex b)
 
 /**
  * @brief Computes the multiplicative inverse (reciprocal) of a complex number.
+ * @ingroup complex_ops
  * 
  * @param a The complex number to invert.
  * 
@@ -81,6 +85,7 @@ t_complex	inv_complx(t_complex a)
 
 /**
  * @brief Calculates the modulus (absolute value) of a complex number.
+ * @ingroup complex_ops
  * 
  * @param num The complex number.
  * 

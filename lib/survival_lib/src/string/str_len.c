@@ -22,7 +22,7 @@
  * @brief Returns the length of a string.
  * @ingroup string_functions
  * 
- * @param str The string to measure.
+ * @param s The string to measure.
  * 
  * @return The length of the string.
  */

@@ -9,6 +9,7 @@
 /**
  * @brief Closes the application window and cleans up resources.
  * @details Destroys the mutex, texture, renderer, window, and SDL2, then exits the program.
+ * @ingroup graphics_module
  * 
  * @param vars Pointer to the main data structure.
  * 
@@ -32,6 +33,7 @@ int	close_window(t_data *vars)
 /**
  * @brief Handles keyboard input events.
  * @details Closes the window when ESC key is pressed.
+ * @ingroup graphics_module
  * 
  * @param keycode The SDL key code of the pressed key.
  * @param vars Pointer to the main data structure.
@@ -48,6 +50,7 @@ int	key_handler(SDL_Keycode keycode, t_data *vars)
 /**
  * @brief Handles mouse wheel zoom events.
  * @details Zooms in/out based on mouse wheel direction, centered at mouse cursor position.
+ * @ingroup graphics_module
  * 
  * @param mousecode Mouse button code (SDL_BUTTON_WHEELUP or SDL_BUTTON_WHEELDOWN).
  * @param x Mouse X coordinate.

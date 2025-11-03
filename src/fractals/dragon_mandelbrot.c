@@ -48,6 +48,7 @@ static int	diverge(t_complex z, t_complex c, int iter, double limit)
 /**
  * @brief Renders a single pixel of the Dragon Mandelbrot fractal.
  * @details Calculates the divergence behavior and colors the pixel accordingly.
+ * @ingroup fractal_rendering
  * 
  * @param img Pointer to the main data structure.
  * @param c Complex number corresponding to the pixel.

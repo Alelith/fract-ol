@@ -79,6 +79,7 @@ static void	calculate_c(t_data *data, t_vector2 screen_pos)
 /**
  * @brief Calculates the maximum number of iterations based on zoom factor.
  * @details Dynamically adjusts iteration depth for better visual effects at different zoom levels.
+ * @ingroup fractal_rendering
  * 
  * @param data Pointer to the main data structure containing the zoom factor.
  * @param max_iter The base maximum number of iterations.
@@ -93,6 +94,7 @@ int	calculate_iterations(t_data *data, int max_iter)
 /**
  * @brief Renders a portion of the fractal in a separate thread.
  * @details Thread worker function that calculates and renders fractal pixels for assigned rows.
+ * @ingroup fractal_rendering
  * 
  * @param arg Pointer to t_thread_data structure containing thread-specific parameters.
  * 
@@ -133,6 +135,7 @@ void	*render_fractal_threaded(void *arg)
 /**
  * @brief Renders the entire fractal using multi-threading.
  * @details Distributes fractal rendering across multiple threads.
+ * @ingroup fractal_rendering
  * 
  * @param data Pointer to the main data structure containing fractal parameters and window info.
  */

@@ -95,6 +95,7 @@ static void	hsv_to_rgb(double h, double s, double v, int *out)
 /**
  * @brief Generates a color based on iteration count using HSV color model.
  * @details Maps iteration count to hue while maintaining saturation and value.
+ * @ingroup graphics_module
  * 
  * @param iter Current iteration count (divergence measure).
  * @param max_iter Maximum number of iterations.
@@ -125,7 +126,8 @@ int	get_color_hsv(int iter, int max_iter)
 /**
  * @brief Generates a psychedelic color based on iteration count using sinusoidal waves.
  * @details Uses sine functions with different phase offsets for each RGB channel.
- *          Implements smooth color transitions using lower frequency and smooth envelope.
+ * Implements smooth color transitions using lower frequency and smooth envelope.
+* @ingroup graphics_module
  * 
  * @param iter Current iteration count (divergence measure).
  * @param phase Phase offset for the sine waves (for animation).

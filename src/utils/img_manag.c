@@ -9,6 +9,7 @@
 /**
  * @brief Puts a pixel at a specific position in the image buffer.
  * @details Thread-safe pixel writing using mutex lock protection.
+ * @ingroup graphics_module
  * 
  * @param data Pointer to the main data structure containing pixel buffer information.
  * @param pos Screen position (x, y coordinates) of the pixel.

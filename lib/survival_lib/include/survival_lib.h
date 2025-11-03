@@ -11,23 +11,23 @@
 /* ************************************************************************** */
 
 /**
- * @mainpage Survival Library
+ * @page survlib_lib_page Survival Library
  * 
  * This library provides a set of standard functions in C, including
  * check functions, conversion functions, memory functions, and string 
  * functions. It is designed to be a comprehensive utility library for 
  * C programming.
  * 
- * @section intro_sec Introduction
+ * @section intro_survlib_lib_sec Introduction
  * The Survival Library is a collection of functions that are 
  * commonly used in C programming.
  * 
- * @section usage_sec Usage
+ * @section usage_survlib_lib_sec Usage
  * To use the Survival Library, include the header file `survival_lib.h` in 
  * your C source files. You can then call the functions provided by the 
  * library.
  * 
- * @section functions_sec Functions
+ * @section functions_survlib_lib_sec Functions
  * The library provides the following categories of functions:
  * - [Check functions](group__check__functions.html): 
  * Functions to check character properties, string equality, etc.
@@ -40,7 +40,7 @@
  * Functions for string manipulation, 
  * including concatenation, splitting, and searching.
  * 
- * @section author_sec Authors
+ * @section author_survlib_lib_sec Authors
  * This library was developed by:
  * - Lilith Estévez Boeta
  */
@@ -54,6 +54,7 @@
 #ifndef SURVIVAL_LIB_H
 # define SURVIVAL_LIB_H
 
+/** @brief Default buffer size for file operations and string functions */
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 256
 # endif
@@ -165,6 +166,18 @@ int				print_format(const char *format, ...);
  * @brief Function to read a line from a file descriptor.
  */
 
+/**
+ * @brief Reads the next line from a file descriptor.
+ * @ingroup get_next_line
+ * 
+ * Reads a single line from the file descriptor, up to and including the newline character.
+ * The returned string does NOT include the newline character.
+ * 
+ * @param fd The file descriptor to read from.
+ * 
+ * @return A pointer to the allocated string containing the line, or NULL on EOF or error.
+ *         The caller is responsible for freeing the returned string.
+ */
 char			*get_next_line(int fd);
 
 #endif

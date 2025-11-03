@@ -8,11 +8,12 @@
  * 
  * @section intro_sec Introduction
  * Fractals are infinitely complex patterns that are self-similar across different scales.
- * Fract-ol provides an interactive environment to explore four different fractal types:
+ * Fract-ol provides an interactive environment to explore multiple different fractal types:
  * - The classic Mandelbrot set
  * - The Julia set with customizable parameters
  * - The Eye Mandelbrot (a variation with z³ iteration)
  * - The Sinh Mandelbrot (using hyperbolic sine operations)
+ * - The Dragon Mandelbrot (another z³ variant)
  * 
  * @section features_sec Key Features
  * - **Real-time Rendering**: Multi-threaded fractal computation for responsive interaction
@@ -29,6 +30,7 @@
  * ./fractol julia <real_part> <imaginary_part>
  * ./fractol eye
  * ./fractol sinh
+ * ./fractol dragon
  * @endcode
  * 
  * **Controls:**
@@ -38,25 +40,12 @@
  * 
  * @section architecture_sec Architecture
  * 
- * The project is organized into the following modules:
+ * The project is organized into the following modules (each with its own dedicated group):
  * 
- * **Complex Number Operations** (src/complex/):
- * - Implements arithmetic operations: multiplication, addition, division, inversion
- * - Provides complex trigonometric functions (hyperbolic sine)
- * - Calculates modulus for divergence detection
- * 
- * **Fractal Rendering** (src/fractals/):
- * - Mandelbrot Set: z = z² + c with c as pixel coordinate
- * - Julia Set: z_{n+1} = z_n² + c with fixed c parameter
- * - Eye Mandelbrot: z = z³ * (1/c) for unique visual effects
- * - Sinh Mandelbrot: z = sinh(z/c) using hyperbolic functions
- * - Rendering engine with multi-threaded pixel computation
- * 
- * **Graphics & Utilities** (src/utils/):
- * - Image buffer management with thread-safe pixel operations
- * - Color generation (HSV-based and psychedelic color schemes)
- * - Event handling (keyboard and mouse input)
- * - String validation for fractal type selection
+ * - @ref complex_ops - Complex number arithmetic and mathematical operations
+ * - @ref fractal_rendering - Fractal computation and multi-threaded rendering engine
+ * - @ref graphics_module - Graphics, colors, and event handling
+ * - @ref data_structures - Core data structures and constants
  * 
  * @section implementation_sec Implementation Details
  * 
@@ -83,10 +72,10 @@
  *   creating animated color effects that cycle through the spectrum
  * 
  * @section dependencies_sec Dependencies
- * - MinilibX (mlx): Graphics library for window creation and rendering
- * - Survival Library: Custom utility functions for string comparison and memory operations
- * - POSIX Threads (pthread): For multi-threaded rendering
- * - Standard C Math Library: For mathematical operations (sqrt, sin, cos, sinh, cosh)
+ * - **SDL2 (Simple DirectMedia Layer)**: Graphics library for window creation, rendering, and event handling
+ * - **Survival Library**: Custom utility functions for string comparison, memory operations, and file handling
+ * - **POSIX Threads (pthread)**: For multi-threaded rendering with mutex synchronization
+ * - **Standard C Math Library (libm)**: For mathematical operations (sqrt, sin, cos, sinh, cosh, log2)
  * 
  * @section author_sec Author
  * This project was developed by:
@@ -102,25 +91,6 @@
 #ifndef FRACT_OL_H
 # define FRACT_OL_H
 
-# ifndef SCREEN_WIDTH
-#  define SCREEN_WIDTH 960
-# endif
-# ifndef SCREEN_HEIGHT
-#  define SCREEN_HEIGHT 540
-# endif
-
-# ifndef ITER
-#  define ITER 20
-# endif
-
-# ifndef PI
-#  define PI 3.14159265358979323846
-# endif
-
-# ifndef NUM_THREADS
-#  define NUM_THREADS 8
-# endif
-
 # include "survival_lib.h"
 # include <SDL2/SDL.h>
 # include <math.h>
@@ -129,10 +99,48 @@
 # include <stdio.h>
 
 /**
- * @enum e_fractals
+ * @defgroup data_structures Core Data Structures and Constants
+ * @brief Main structures and configuration constants for the Fract-ol renderer.
+ * @details
+ * This group contains all core data structures used throughout the application,
+ * including the main application data structure, thread configuration, and constants
+ * for window dimensions, rendering parameters, and mathematical definitions.
+ */
+
+/** @ingroup data_structures
+ * @brief Default window width in pixels */
+# ifndef SCREEN_WIDTH
+#  define SCREEN_WIDTH 960
+# endif
+/** @ingroup data_structures
+ * @brief Default window height in pixels */
+# ifndef SCREEN_HEIGHT
+#  define SCREEN_HEIGHT 540
+# endif
+
+/** @ingroup data_structures
+ * @brief Maximum iteration count for fractal computation */
+# ifndef ITER
+#  define ITER 20
+# endif
+
+/** @ingroup data_structures
+ * @brief Mathematical constant PI */
+# ifndef PI
+#  define PI 3.14159265358979323846
+# endif
+
+/** @ingroup data_structures
+ * @brief Number of worker threads for parallel rendering */
+# ifndef NUM_THREADS
+#  define NUM_THREADS 8
+# endif
+
+/**
+ * @ingroup data_structures
  * @brief Enumeration of supported fractal types.
  * 
- * This enum defines the four types of fractals that can be rendered by Fract-ol.
+ * This enum defines the five types of fractals that can be rendered by Fract-ol.
  * Each fractal type has a unique mathematical formula for iteration.
  */
 typedef enum e_fractals
@@ -142,9 +150,10 @@ typedef enum e_fractals
 	SINH_MANDELBROT = 2,	/**< Sinh Mandelbrot: z = sinh(z/c) */
 	EYE_MANDELBROT = 3,		/**< Eye Mandelbrot: z = z³ * (1/c) */
 	DRAGON_MANDELBROT = 4	/**< Dragon Mandelbrot: z = z³ * (1/c) */
-}	t_fractals;
+}	t_fractals; ///< Typedef for enum e_fractals
 
 /**
+ * @ingroup data_structures
  * @struct s_vector2
  * @brief Represents a 2D integer vector or screen coordinate.
  * 
@@ -155,9 +164,10 @@ typedef struct s_vector2
 {
 	int	x;	/**< X coordinate (column/horizontal position) */
 	int	y;	/**< Y coordinate (row/vertical position) */
-}	t_vector2;
+}	t_vector2; ///< Typedef for struct s_vector2
 
 /**
+ * @ingroup data_structures
  * @struct s_complex
  * @brief Represents a complex number in rectangular form.
  * 
@@ -169,9 +179,10 @@ typedef struct s_complex
 {
 	double	real;	/**< Real part of the complex number */
 	double	imag;	/**< Imaginary part of the complex number */
-}	t_complex;
+}	t_complex; ///< Typedef for struct s_complex
 
 /**
+ * @ingroup data_structures
  * @struct s_data
  * @brief Main application data structure containing all rendering and graphics state.
  * 
@@ -195,9 +206,10 @@ typedef struct s_data
 	t_fractals		type;					/**< Current fractal type being rendered */
 	pthread_mutex_t	pixels_mutex;			/**< Mutex for thread-safe pixel buffer access */
 	int				running;				/**< Flag to control main loop (1 = running, 0 = exit) */
-}	t_data;
+}	t_data; ///< Typedef for struct s_data
 
 /**
+ * @ingroup data_structures
  * @struct s_thread_data
  * @brief Thread-specific data passed to worker threads for parallel rendering.
  * 
@@ -211,11 +223,38 @@ typedef struct s_thread_data
 	int			start_y;	/**< Starting Y coordinate (row) for this thread's work region */
 	int			end_y;		/**< Ending Y coordinate (row) for this thread's work region */
 	int			thread_id;	/**< Unique identifier for this thread (0 to NUM_THREADS-1) */
-}	t_thread_data;
+}	t_thread_data; ///< Typedef for struct s_thread_data
+
+/**
+ * @defgroup graphics_module Graphics, Colors, and Event Handling
+ * @brief Graphics rendering, color generation, and user input handling.
+ * @details
+ * This module manages all graphical output and user interaction:
+ * - SDL2-based window and renderer management
+ * - Pixel buffer operations with thread-safe access
+ * - Color generation algorithms (HSV and psychedelic color schemes)
+ * - Keyboard and mouse event handling for zoom and navigation
+ * - Texture and display updates for smooth rendering
+ */
 
 void		my_mlx_pixel_put(t_data *data, t_vector2 pos, int color);
 int			get_color_hsv(int iter, int max_iter);
 int			psychedelic_color(int iter, double phase, int iterations);
+int			key_handler(SDL_Keycode keycode, t_data *vars);
+int			zoom(Uint8 mousecode, int x, int y, t_data *img);
+int			is_mandelbrot(char *type);
+int			is_julia(char *type);
+int			close_window(t_data *vars);
+
+/**
+ * @defgroup complex_ops Complex Number Operations
+ * @brief Complex number arithmetic and mathematical functions.
+ * @details
+ * This module implements complete complex number arithmetic including addition,
+ * multiplication, division, and inversion. It also provides specialized functions
+ * like modulus calculation and hyperbolic sine for complex arguments.
+ * Used extensively in fractal iteration calculations.
+ */
 
 double		complx_module(t_complex num);
 t_complex	inv_complx(t_complex a);
@@ -223,6 +262,21 @@ t_complex	sinh_complx(t_complex num);
 t_complex	sum_complx(t_complex a, t_complex b);
 t_complex	div_complx(t_complex a, t_complex b);
 t_complex	multiply_complx(t_complex a, t_complex b);
+
+/**
+ * @defgroup fractal_rendering Fractal Rendering Engine
+ * @brief Fractal computation and multi-threaded rendering.
+ * @details
+ * This module handles the core fractal calculations including:
+ * - Mandelbrot set computation (z = z² + c)
+ * - Julia set computation (z_{n+1} = z_n² + c)
+ * - Eye Mandelbrot variant (z = z³ * (1/c))
+ * - Sinh Mandelbrot variant (z = sinh(z/c))
+ * - Dragon Mandelbrot variant
+ * 
+ * Features multi-threaded rendering using worker threads for parallel computation
+ * and real-time responsive interaction.
+ */
 
 int			calculate_iterations(t_data *data, int max_iter);
 void		redraw_fractal(t_data *data);
@@ -232,13 +286,5 @@ void		draw_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_eye_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_sinh_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
 void		draw_dragon_mandelbrot(t_data *img, t_complex c, t_vector2 pos);
-
-int			key_handler(SDL_Keycode keycode, t_data *vars);
-int			zoom(Uint8 mousecode, int x, int y, t_data *img);
-
-int			is_mandelbrot(char *type);
-int			is_julia(char *type);
-
-int			close_window(t_data *vars);
 
 #endif

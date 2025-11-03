@@ -9,6 +9,7 @@
 /**
  * @brief Checks if a string matches the "mandelbrot" fractal type.
  * @details Compares the input string with valid Mandelbrot variants (mandelbrot, sinh, eye).
+ * @ingroup graphics_module
  * 
  * @param type String to check.
  * 
@@ -26,6 +27,7 @@ int	is_mandelbrot(char *type)
 
 /**
  * @brief Checks if a string matches the "julia" fractal type.
+ * @ingroup graphics_module
  * 
  * @param type String to check.
  * 
