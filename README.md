@@ -99,22 +99,60 @@ The application is structured into specialized modules:
 5. Rendering: each worker computes a fractal section
 6. Screen presentation and synchronization
 
-```
-┌─────────────────────────────────────┐
-│      Event Loop (Main Thread)       │
-│  - Handle zoom/input                │
-│  - Update fractal parameters        │
-└──────────────┬──────────────────────┘
-               │
-               ├─ [Worker Thread 1] - Compute Fractal Section
-               ├─ [Worker Thread 2] - Compute Fractal Section
-               ├─ [Worker Thread 3] - Compute Fractal Section
-               └─ [Worker Thread 4+] - Compute Fractal Section
-               │
-               ↓
-        ┌──────────────────┐
-        │ Render to Screen │
-        └──────────────────┘
+```mermaid
+graph TD
+    %% Estilos para nodos
+    classDef init fill:#2d333b,stroke:#5c687a,color:white;
+    classDef core fill:#1f6feb,stroke:none,color:white;
+    classDef thread fill:#238636,stroke:none,color:white;
+    classDef render fill:#8b949e,stroke:none,color:black;
+
+    %% Nodos de Inicialización
+    Init([🚀 Entry Point / Main]):::init
+    Setup[⚙️ SDL2 Init & Args Parsing]:::init
+    
+    subgraph Event_Loop ["🔄 Main Thread (Event Loop)"]
+        Input{{🎮 User Input / Events}}
+        Param[Update Zoom & Coordinates]
+        RenderCall[Trigger Render]
+    end
+
+    subgraph Compute_Engine ["⚡ Parallel Compute Engine (Pthreads)"]
+        direction TB
+        Manager[Thread Manager]:::thread
+        
+        subgraph Workers ["Worker Threads (x8)"]
+            W1[Compute Slice 1]:::core
+            W2[Compute Slice 2]:::core
+            W3[Compute Slice 3]:::core
+            W_More[...]:::core
+        end
+    end
+
+    subgraph Math_Kernel ["🧠 Math Kernel"]
+        Algo{Algorithm}
+        M[Mandelbrot]
+        J[Julia]
+        V[Variations]
+    end
+
+    Display([🖼️ Put Image to Window]):::render
+
+    %% Conexiones
+    Init --> Setup
+    Setup --> Event_Loop
+    
+    Input -->|Key/Mouse| Param
+    Param --> RenderCall
+    RenderCall --> Manager
+    
+    Manager -- "Split Work" --> W1 & W2 & W3 & W_More
+    
+    W1 & W2 & W3 & W_More --> Algo
+    Algo --> M & J & V
+    
+    M & J & V -.->|Write to Buffer| Display
+    Display -.-> Input
 ```
 
 ---
