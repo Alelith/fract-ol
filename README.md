@@ -10,9 +10,9 @@
 
 ## 🧠 Description
 
-**Fract-ol** is a high-performance interactive fractal renderer written in C. The application allows you to visualize and explore beautiful mathematical fractals in real-time, with smooth zoom capabilities, dynamic color schemes, and multi-threaded rendering for optimal performance.
+**Fract-ol** allows you to explore mathematical beauty in real-time. By leveraging **multi-threading (pthreads)** and optimized arithmetic, it renders complex sets like Mandelbrot and Julia with smooth zoom capabilities.
 
-The project implements four different types of fractals and provides an interactive interface to explore these fascinating mathematical objects. It's ideal for learning about complex mathematics, C programming, and graphics programming.
+The project demonstrates mastery of **low-level optimization**, **memory management**, and **graphics programming**.
 
 ---
 
@@ -75,8 +75,8 @@ The application is structured into specialized modules:
 - Modulus calculation for divergence detection
 
 **Fractal Rendering** (`src/fractals/`):
-- **Mandelbrot Set**: z = z² + c where c is the pixel coordinate
-- **Julia Set**: z_{n+1} = z_n² + c with customizable fixed parameter c
+- **Mandelbrot Set**: $$z_{n+1} = z_n^2 + c$$ where c is the pixel coordinate
+- **Julia Set**: $$z_{n+1} = z_n^2 + c$$ with customizable fixed parameter c
 - **Eye Mandelbrot**: Variation with z³ iteration
 - **Sinh Mandelbrot**: Using hyperbolic sine operations
 - **Dragon Mandelbrot**: Additional variation of the Mandelbrot set
