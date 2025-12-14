@@ -75,11 +75,11 @@ The application is structured into specialized modules:
 - Modulus calculation for divergence detection
 
 **Fractal Rendering** (`src/fractals/`):
-- **Mandelbrot Set**: $$z_{n+1} = z_n^2 + c$$ where c is the pixel coordinate
-- **Julia Set**: $$z_{n+1} = z_n^2 + c$$ with customizable fixed parameter c
-- **Eye Mandelbrot**: Variation with z³ iteration
-- **Sinh Mandelbrot**: Using hyperbolic sine operations
-- **Dragon Mandelbrot**: Additional variation of the Mandelbrot set
+- **Mandelbrot Set**: $$z_{n+1} = z_n^2 + c$$ where $$c$$ is the pixel coordinate
+- **Julia Set**: $$z_{n+1} = z_n^2 + c$$ with customizable fixed parameter $$c$$
+- **Eye Mandelbrot**: Variation of mandelbrot with $$z_{n+1} = z_n^3 + 1/c$$ equation
+- **Sinh Mandelbrot**: Mandelbrot variation using hyperbolic sine $$z_{n+1} = sinH(z_n/c)$$
+- **Dragon Mandelbrot**: A complex mandelbrot variation using hyperbolic sine $$z_{n+1} = sinH(z_n) + 1/c^2$$
 
 **Utilities** (`src/utils/`):
 - Image management and pixel buffer
