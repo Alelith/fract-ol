@@ -27,7 +27,7 @@ The project demonstrates mastery of **low-level optimization**, **memory managem
 - [Execution](#%EF%B8%8F-execution)
 - [Configuration](#%EF%B8%8F-configuration)
 - [Usage and Examples](#-usage-and-examples)
-- [Screenshots or Demo](#-screenshots-or-demo)
+- [Screenshots or Demo](#-demo)
 - [Documentation](#-documentation)
 - [Known Issues / ToDo](#-known-issues--todo)
 - [Learnings and Future Improvements](#-learnings-and-future-improvements)
@@ -353,7 +353,7 @@ Different parameters produce completely different visual sets:
 
 ---
 
-## 📸 Screenshots or Demo
+## 📸 Demo
 
 > **📝 Note**: It's recommended to run the program and interactively explore the different fractals. Each screenshot has unique characteristics depending on the zoom level and parameters used.
 
