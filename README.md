@@ -27,7 +27,7 @@ The project demonstrates mastery of **low-level optimization**, **memory managem
 - [Execution](#%EF%B8%8F-execution)
 - [Configuration](#%EF%B8%8F-configuration)
 - [Usage and Examples](#-usage-and-examples)
-- [Screenshots or Demo](#-demo)
+- [Demo](#-demo)
 - [Documentation](#-documentation)
 - [Known Issues / ToDo](#-known-issues--todo)
 - [Learnings and Future Improvements](#-learnings-and-future-improvements)
